@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { type Address, isAddress, recoverMessageAddress } from "viem";
+import { FaucetError, executeClaim } from "~~/services/faucetService";
 import { createUserIfNotExists, getUserByWallet } from "~~/services/supabaseService";
-import { executeClaim, FaucetError } from "~~/services/faucetService";
 import { isClaimMessageValid } from "~~/utils/claimMessage";
 
 const RATE_LIMIT_WINDOW_MS = 60 * 1000;
@@ -30,10 +30,7 @@ export async function POST(req: NextRequest) {
   try {
     const ip = getClientIp(req);
     if (isRateLimited(ip)) {
-      return NextResponse.json(
-        { data: null, error: "RATE_LIMIT" },
-        { status: 429 },
-      );
+      return NextResponse.json({ data: null, error: "RATE_LIMIT" }, { status: 429 });
     }
 
     const body = await req.json();
@@ -79,17 +76,11 @@ export async function POST(req: NextRequest) {
     let user = await getUserByWallet(walletAddress);
     if (!user) {
       user = await createUserIfNotExists(walletAddress);
-      return NextResponse.json(
-        { data: null, error: "GITHUB_NOT_LINKED" },
-        { status: 403 },
-      );
+      return NextResponse.json({ data: null, error: "GITHUB_NOT_LINKED" }, { status: 403 });
     }
 
     if (!user.github_id) {
-      return NextResponse.json(
-        { data: null, error: "GITHUB_NOT_LINKED" },
-        { status: 403 },
-      );
+      return NextResponse.json({ data: null, error: "GITHUB_NOT_LINKED" }, { status: 403 });
     }
 
     if (user.status === "pending" || user.status === "blocked") {

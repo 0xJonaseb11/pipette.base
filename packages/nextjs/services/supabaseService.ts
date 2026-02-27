@@ -1,18 +1,5 @@
-"use server";
-
 import { type SupabaseClient, createClient } from "@supabase/supabase-js";
 import type { ClaimEvent, GitHubProfile, TreasurySnapshot, User, UserStatus } from "~~/types";
-
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-if (!SUPABASE_URL) {
-  throw new Error("NEXT_PUBLIC_SUPABASE_URL is not set");
-}
-
-if (!SUPABASE_SERVICE_ROLE_KEY) {
-  throw new Error("SUPABASE_SERVICE_ROLE_KEY is not set");
-}
 
 type DatabaseUserRow = {
   id: string;
@@ -47,13 +34,14 @@ let supabaseClient: SupabaseClient | null = null;
 
 function getServiceClient(): SupabaseClient {
   if (!supabaseClient) {
-    supabaseClient = createClient(SUPABASE_URL as string, SUPABASE_SERVICE_ROLE_KEY as string, {
-      auth: {
-        persistSession: false,
-      },
+    const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    if (!url) throw new Error("NEXT_PUBLIC_SUPABASE_URL is not set");
+    if (!key) throw new Error("SUPABASE_SERVICE_ROLE_KEY is not set");
+    supabaseClient = createClient(url, key, {
+      auth: { persistSession: false },
     });
   }
-
   return supabaseClient;
 }
 

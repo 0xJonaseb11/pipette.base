@@ -1,8 +1,8 @@
 "use client";
 
-import { Clock, CheckCircle } from "lucide-react";
-import type { User } from "~~/types";
+import { CheckCircle, Clock } from "lucide-react";
 import { CardSkeleton } from "~~/components/skeletons/CardSkeleton";
+import type { User } from "~~/types";
 
 type Props = {
   user: User | null;
@@ -60,11 +60,7 @@ export function StatusCard({ user, loading }: Props) {
   }
 
   const statusLabel =
-    user.status === "active"
-      ? "Eligible"
-      : user.status === "pending"
-        ? "Pending approval"
-        : "Restricted";
+    user.status === "active" ? "Eligible" : user.status === "pending" ? "Pending approval" : "Restricted";
 
   return (
     <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 space-y-4">
@@ -78,9 +74,7 @@ export function StatusCard({ user, loading }: Props) {
         ) : (
           <div className="h-5 w-5 rounded-full border-2 border-amber-500" />
         )}
-        <span className="font-medium text-zinc-900 dark:text-zinc-100 capitalize">
-          {statusLabel}
-        </span>
+        <span className="font-medium text-zinc-900 dark:text-zinc-100 capitalize">{statusLabel}</span>
       </div>
       {user.last_claim_at && (
         <p className="text-sm text-zinc-600 dark:text-zinc-400">

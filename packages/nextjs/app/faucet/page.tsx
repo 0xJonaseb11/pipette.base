@@ -1,13 +1,13 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { useAccount } from "wagmi";
 import { Droplets } from "lucide-react";
-import { GitHubConnectBanner } from "~~/components/faucet/GitHubConnectBanner";
-import { FaucetCard } from "~~/components/faucet/FaucetCard";
-import { StatusCard } from "~~/components/faucet/StatusCard";
+import { useAccount } from "wagmi";
 import { AntiSybilScore } from "~~/components/faucet/AntiSybilScore";
 import { ClaimButton } from "~~/components/faucet/ClaimButton";
+import { FaucetCard } from "~~/components/faucet/FaucetCard";
+import { GitHubConnectBanner } from "~~/components/faucet/GitHubConnectBanner";
+import { StatusCard } from "~~/components/faucet/StatusCard";
 import type { User } from "~~/types";
 import type { SybilScoreBreakdown } from "~~/types";
 
@@ -101,8 +101,7 @@ export default function FaucetPage() {
 
   const handleGitHubConnect = () => {
     const url =
-      process.env.NEXT_PUBLIC_SUPABASE_URL &&
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+      process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
         ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/auth/v1/authorize?provider=github&redirect_to=${encodeURIComponent(
             typeof window !== "undefined" ? `${window.location.origin}/faucet` : "",
           )}`
@@ -125,22 +124,14 @@ export default function FaucetPage() {
               <Droplets className="h-6 w-6 text-blue-600 dark:text-blue-400" />
             </div>
             <div>
-              <h1 className="text-xl font-semibold text-zinc-900 dark:text-zinc-100">
-                Pipette
-              </h1>
-              <p className="text-sm text-zinc-500 dark:text-zinc-400">
-                Base Sepolia developer faucet
-              </p>
+              <h1 className="text-xl font-semibold text-zinc-900 dark:text-zinc-100">Pipette</h1>
+              <p className="text-sm text-zinc-500 dark:text-zinc-400">Base Sepolia developer faucet</p>
             </div>
           </div>
           <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-4 py-2.5">
-            <p className="text-xs text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
-              Treasury
-            </p>
+            <p className="text-xs text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">Treasury</p>
             <p className="text-lg font-semibold text-zinc-900 dark:text-zinc-100 tabular-nums">
-              {treasuryBalance != null
-                ? `${Number(treasuryBalance).toFixed(4)} ETH`
-                : "—"}
+              {treasuryBalance != null ? `${Number(treasuryBalance).toFixed(4)} ETH` : "—"}
             </p>
           </div>
         </header>
@@ -161,10 +152,7 @@ export default function FaucetPage() {
         {/* Score (after GitHub linked) */}
         {(user?.github_id || scoreBreakdown) && (
           <div className="mt-6">
-            <AntiSybilScore
-              breakdown={scoreBreakdown}
-              loading={user?.github_id ? scoreLoading : false}
-            />
+            <AntiSybilScore breakdown={scoreBreakdown} loading={user?.github_id ? scoreLoading : false} />
           </div>
         )}
 
