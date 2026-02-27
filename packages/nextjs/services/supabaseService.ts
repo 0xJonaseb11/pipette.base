@@ -1,5 +1,7 @@
-import type { ClaimEvent, TreasurySnapshot, User, UserStatus } from "../types";
-import { SupabaseClient, createClient } from "@supabase/supabase-js";
+"use server";
+
+import { type SupabaseClient, createClient } from "@supabase/supabase-js";
+import type { ClaimEvent, GitHubProfile, TreasurySnapshot, User, UserStatus } from "~~/types";
 
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -57,15 +59,13 @@ function getServiceClient(): SupabaseClient {
 
 export async function getUserByWallet(address: string): Promise<User | null> {
   const supabase = getServiceClient();
+  const walletAddress = address.toLowerCase();
 
-  const { data, error } = await supabase
-    .from("users")
-    .select("*")
-    .eq("wallet_address", address.toLowerCase())
-    .maybeSingle();
+  const { data, error } = await supabase.from("users").select("*").eq("wallet_address", walletAddress).maybeSingle();
 
   if (error) {
-    if (error.code === "PGRST116") {
+    // PGRST116 is \"No rows found for single()\" – treat as null user.
+    if ((error as { code?: string }).code === "PGRST116") {
       return null;
     }
 
@@ -101,16 +101,6 @@ export async function createUserIfNotExists(address: string): Promise<User> {
   }
 
   return mapUserRow(data as DatabaseUserRow);
-}
-
-export interface GitHubProfile {
-  github_id: string;
-  login: string;
-  account_age_days: number;
-  public_repos: number;
-  followers: number;
-  following: number;
-  has_email: boolean;
 }
 
 export async function linkGitHub(address: string, profile: GitHubProfile): Promise<void> {
@@ -155,11 +145,11 @@ export async function updateUserStatus(address: string, status: UserStatus): Pro
   }
 }
 
-export async function recordClaim(address: string, amount: string, txHash: string): Promise<void> {
+export async function recordClaim(address: string, amountEth: string, txHash: string): Promise<void> {
   const supabase = getServiceClient();
   const walletAddress = address.toLowerCase();
 
-  const numericAmount = Number(amount);
+  const numericAmount = Number(amountEth);
 
   const { error: insertError } = await supabase.from("claim_history").insert({
     wallet_address: walletAddress,
@@ -176,7 +166,7 @@ export async function recordClaim(address: string, amount: string, txHash: strin
     p_amount: numericAmount,
   });
 
-  if (updateError && updateError.code !== "PGRST116") {
+  if (updateError && (updateError as { code?: string }).code !== "PGRST116") {
     throw updateError;
   }
 }
@@ -200,8 +190,9 @@ export async function getDailyClaimTotal(): Promise<number> {
     return 0;
   }
 
-  type ClaimRow = { amount: number };
-  return (data as ClaimRow[]).reduce((sum: number, row: ClaimRow) => sum + Number(row.amount), 0);
+  type AmountRow = { amount: number };
+
+  return (data as AmountRow[]).reduce((sum: number, row: AmountRow) => sum + Number(row.amount), 0);
 }
 
 export async function getClaimHistory(limit?: number): Promise<ClaimEvent[]> {
@@ -256,6 +247,9 @@ function mapUserRow(row: DatabaseUserRow): User {
     wallet_address: row.wallet_address,
     github_id: row.github_id,
     github_login: row.github_login,
+    github_account_age_days: row.github_account_age_days,
+    github_public_repos: row.github_public_repos,
+    github_followers: row.github_followers,
     sybil_score: row.sybil_score,
     status: row.status,
     last_claim_at: row.last_claim_at,

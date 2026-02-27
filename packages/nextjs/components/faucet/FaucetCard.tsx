@@ -1,0 +1,44 @@
+"use client";
+
+import { Wallet } from "lucide-react";
+import { RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
+import { useAccount } from "wagmi";
+import { Address } from "@scaffold-ui/components";
+import { baseSepolia } from "viem/chains";
+import { CardSkeleton } from "~~/components/skeletons/CardSkeleton";
+
+export function FaucetCard() {
+  const { address, isConnected } = useAccount();
+
+  if (isConnected === undefined) {
+    return <CardSkeleton />;
+  }
+
+  return (
+    <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6">
+      <div className="flex items-center gap-2 text-zinc-600 dark:text-zinc-400 mb-3">
+        <Wallet className="h-4 w-4" />
+        <span className="text-sm font-medium">Wallet</span>
+      </div>
+      {isConnected && address ? (
+        <div className="space-y-2">
+          <p className="text-xs text-zinc-500 dark:text-zinc-500 uppercase tracking-wider">
+            Connected
+          </p>
+          <Address
+            address={address}
+            chain={baseSepolia}
+            blockExplorerAddressLink={`https://sepolia.basescan.org/address/${address}`}
+          />
+        </div>
+      ) : (
+        <div className="flex flex-col items-start gap-3">
+          <p className="text-sm text-zinc-600 dark:text-zinc-400">
+            Connect your wallet to request testnet ETH.
+          </p>
+          <RainbowKitCustomConnectButton />
+        </div>
+      )}
+    </div>
+  );
+}

@@ -5,6 +5,9 @@ export interface User {
   wallet_address: string;
   github_id: string | null;
   github_login: string | null;
+  github_account_age_days?: number;
+  github_public_repos?: number;
+  github_followers?: number;
   sybil_score: number;
   status: UserStatus;
   last_claim_at: string | null;
