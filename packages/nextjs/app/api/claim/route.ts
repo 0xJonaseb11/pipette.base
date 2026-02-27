@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { isAddress, recoverMessageAddress } from "viem";
+import { type Address, isAddress, recoverMessageAddress } from "viem";
 import { createUserIfNotExists, getUserByWallet } from "~~/services/supabaseService";
 import { executeClaim, FaucetError } from "~~/services/faucetService";
-import { isClaimMessageValid } from "../nonce/route";
+import { isClaimMessageValid } from "~~/utils/claimMessage";
 
 const RATE_LIMIT_WINDOW_MS = 60 * 1000;
 const RATE_LIMIT_MAX = 5;
@@ -62,9 +62,12 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ data: null, error: "INVALID_MESSAGE" }, { status: 400 });
     }
 
-    let signer: `0x${string}`;
+    let signer: string;
     try {
-      signer = await recoverMessageAddress({ message, signature: signature as `0x${string}` });
+      signer = await recoverMessageAddress({
+        message,
+        signature: signature as `0x${string}`,
+      });
     } catch {
       return NextResponse.json({ data: null, error: "INVALID_SIGNATURE" }, { status: 400 });
     }
@@ -96,7 +99,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const result = await executeClaim(user, walletAddress as `0x${string}`);
+    const result = await executeClaim(user, walletAddress as Address);
     return NextResponse.json({ data: result, error: null });
   } catch (err) {
     if (err instanceof FaucetError) {
