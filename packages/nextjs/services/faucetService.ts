@@ -1,29 +1,23 @@
-'use server';
+"use server";
 
-import type { Address } from 'viem';
-import { formatEther, parseEther } from 'viem';
+import type { Address } from "viem";
+import { formatEther, parseEther } from "viem";
+import { getClaimAmount } from "~~/services/antiSybilService";
+import { getDailyClaimTotal, recordClaim } from "~~/services/supabaseService";
+import { getTreasuryBalance, sendFromTreasury } from "~~/services/treasuryService";
+import type { User } from "~~/types";
 
-import { getDailyClaimTotal, recordClaim } from '~~/services/supabaseService';
-import type { User } from '~~/types';
-import { getClaimAmount } from '~~/services/antiSybilService';
-import { getTreasuryBalance, sendFromTreasury } from '~~/services/treasuryService';
-
-const DAILY_DISTRIBUTION_CAP_ETH = Number(process.env.DAILY_DISTRIBUTION_CAP_ETH ?? '1.0');
-const TREASURY_RESERVE_BUFFER = Number(process.env.TREASURY_RESERVE_BUFFER ?? '10');
-const CLAIM_COOLDOWN_HOURS = Number(process.env.CLAIM_COOLDOWN_HOURS ?? '24');
+const DAILY_DISTRIBUTION_CAP_ETH = Number(process.env.DAILY_DISTRIBUTION_CAP_ETH ?? "1.0");
+const TREASURY_RESERVE_BUFFER = Number(process.env.TREASURY_RESERVE_BUFFER ?? "10");
+const CLAIM_COOLDOWN_HOURS = Number(process.env.CLAIM_COOLDOWN_HOURS ?? "24");
 
 export class FaucetError extends Error {
   constructor(
     message: string,
-    public readonly code:
-      | 'PENDING_REVIEW'
-      | 'BLOCKED'
-      | 'COOLDOWN'
-      | 'INSUFFICIENT_TREASURY'
-      | 'DAILY_CAP_REACHED',
+    public readonly code: "PENDING_REVIEW" | "BLOCKED" | "COOLDOWN" | "INSUFFICIENT_TREASURY" | "DAILY_CAP_REACHED",
   ) {
     super(message);
-    this.name = 'FaucetError';
+    this.name = "FaucetError";
   }
 }
 
@@ -47,17 +41,17 @@ function getNextEligibleAt(lastClaimAt: string | null): Date {
 }
 
 export async function evaluateClaim(user: User): Promise<ClaimEvaluation> {
-  if (user.status === 'blocked') {
+  if (user.status === "blocked") {
     return {
       ok: false,
-      reason: new FaucetError('User is blocked', 'BLOCKED'),
+      reason: new FaucetError("User is blocked", "BLOCKED"),
     };
   }
 
-  if (user.status === 'pending') {
+  if (user.status === "pending") {
     return {
       ok: false,
-      reason: new FaucetError('User is pending admin review', 'PENDING_REVIEW'),
+      reason: new FaucetError("User is pending admin review", "PENDING_REVIEW"),
     };
   }
 
@@ -65,7 +59,7 @@ export async function evaluateClaim(user: User): Promise<ClaimEvaluation> {
   if (claimAmountWei === 0n) {
     return {
       ok: false,
-      reason: new FaucetError('User is not eligible for a claim at this time', 'PENDING_REVIEW'),
+      reason: new FaucetError("User is not eligible for a claim at this time", "PENDING_REVIEW"),
     };
   }
 
@@ -75,16 +69,13 @@ export async function evaluateClaim(user: User): Promise<ClaimEvaluation> {
     if (now < nextEligibleAt) {
       return {
         ok: false,
-        reason: new FaucetError('User is still in cooldown period', 'COOLDOWN'),
+        reason: new FaucetError("User is still in cooldown period", "COOLDOWN"),
         nextEligibleAt,
       };
     }
   }
 
-  const [treasuryBalanceWei, dailyTotalEth] = await Promise.all([
-    getTreasuryBalance(),
-    getDailyClaimTotal(),
-  ]);
+  const [treasuryBalanceWei, dailyTotalEth] = await Promise.all([getTreasuryBalance(), getDailyClaimTotal()]);
 
   const claimAmountEth = Number(formatEther(claimAmountWei));
   const treasuryBalanceEth = Number(formatEther(treasuryBalanceWei));
@@ -92,14 +83,14 @@ export async function evaluateClaim(user: User): Promise<ClaimEvaluation> {
   if (treasuryBalanceEth < claimAmountEth * TREASURY_RESERVE_BUFFER) {
     return {
       ok: false,
-      reason: new FaucetError('Treasury reserve buffer would be violated', 'INSUFFICIENT_TREASURY'),
+      reason: new FaucetError("Treasury reserve buffer would be violated", "INSUFFICIENT_TREASURY"),
     };
   }
 
   if (dailyTotalEth + claimAmountEth > DAILY_DISTRIBUTION_CAP_ETH) {
     return {
       ok: false,
-      reason: new FaucetError('Daily distribution cap reached', 'DAILY_CAP_REACHED'),
+      reason: new FaucetError("Daily distribution cap reached", "DAILY_CAP_REACHED"),
     };
   }
 
@@ -112,7 +103,10 @@ export async function evaluateClaim(user: User): Promise<ClaimEvaluation> {
   };
 }
 
-export async function executeClaim(user: User, walletAddress: Address): Promise<{
+export async function executeClaim(
+  user: User,
+  walletAddress: Address,
+): Promise<{
   txHash: string;
   amount: string;
   nextEligibleAt: string;
@@ -135,4 +129,3 @@ export async function executeClaim(user: User, walletAddress: Address): Promise<
     nextEligibleAt: evaluation.nextEligibleAt.toISOString(),
   };
 }
-
