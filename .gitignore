@@ -21,3 +21,10 @@ node_modules
 
 # cli
 dist
+
+AGENTS.md
+CLAUDE.md
+.claude/*
+.cursor/*
+.agents/*
+.opencode/*
