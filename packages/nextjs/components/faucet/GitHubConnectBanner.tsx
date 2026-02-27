@@ -15,9 +15,7 @@ export function GitHubConnectBanner({ onConnect, loading }: Props) {
           <Github className="h-5 w-5 text-amber-700 dark:text-amber-400" />
         </div>
         <div>
-          <p className="font-medium text-zinc-900 dark:text-zinc-100">
-            Connect GitHub to claim
-          </p>
+          <p className="font-medium text-zinc-900 dark:text-zinc-100">Connect GitHub to claim</p>
           <p className="text-sm text-zinc-600 dark:text-zinc-400">
             Link your GitHub account to verify identity and unlock claims.
           </p>

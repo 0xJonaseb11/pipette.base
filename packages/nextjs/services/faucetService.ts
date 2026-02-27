@@ -1,7 +1,5 @@
-"use server";
-
 import type { Address } from "viem";
-import { formatEther, parseEther } from "viem";
+import { formatEther } from "viem";
 import { getClaimAmount } from "~~/services/antiSybilService";
 import { getDailyClaimTotal, recordClaim } from "~~/services/supabaseService";
 import { getTreasuryBalance, sendFromTreasury } from "~~/services/treasuryService";

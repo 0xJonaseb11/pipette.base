@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isAddress } from "viem";
-import { getUserByWallet } from "~~/services/supabaseService";
 import { computeSybilScore } from "~~/services/antiSybilService";
+import { getUserByWallet } from "~~/services/supabaseService";
 import type { GitHubProfile } from "~~/types";
 
 export async function GET(req: NextRequest) {
@@ -26,10 +26,7 @@ export async function GET(req: NextRequest) {
       has_email: false,
     };
 
-    const { score, breakdown } = await computeSybilScore(
-      profile,
-      address as `0x${string}`,
-    );
+    const { score, breakdown } = await computeSybilScore(profile, address as `0x${string}`);
     return NextResponse.json({ data: { score, breakdown }, error: null });
   } catch {
     return NextResponse.json({ data: null, error: "FETCH_FAILED" }, { status: 500 });

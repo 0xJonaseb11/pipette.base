@@ -1,16 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import {
-  Wallet,
-  Github,
-  Loader2,
-  Clock,
-  ShieldOff,
-  ArrowDownToLine,
-  CheckCircle,
-  AlertCircle,
-} from "lucide-react";
+import { AlertCircle, ArrowDownToLine, CheckCircle, Clock, Github, Loader2, ShieldOff, Wallet } from "lucide-react";
 import { useAccount, useSignMessage } from "wagmi";
 import type { User } from "~~/types";
 
@@ -35,13 +26,7 @@ type Props = {
   onClaimSuccess?: () => void;
 };
 
-export function ClaimButton({
-  user,
-  userLoading,
-  nextEligibleAt,
-  claimAmount,
-  onClaimSuccess,
-}: Props) {
+export function ClaimButton({ user, userLoading, nextEligibleAt, claimAmount, onClaimSuccess }: Props) {
   const { address, isConnected } = useAccount();
   const { signMessageAsync } = useSignMessage();
   const [state, setState] = useState<ClaimState>("idle");
@@ -51,22 +36,13 @@ export function ClaimButton({
   const loading = userLoading || state === "loading";
   const isPending = user?.status === "pending";
   const isBlocked = user?.status === "blocked";
-  const hasCooldown =
-    user?.last_claim_at &&
-    nextEligibleAt &&
-    new Date(nextEligibleAt) > new Date();
+  const hasCooldown = user?.last_claim_at && nextEligibleAt && new Date(nextEligibleAt) > new Date();
   const canClaim =
-    isConnected &&
-    address &&
-    user?.github_id &&
-    user?.status === "active" &&
-    !hasCooldown &&
-    claimAmount;
+    isConnected && address && user?.github_id && user?.status === "active" && !hasCooldown && claimAmount;
 
   const derivedState: ClaimState = (() => {
     if (loading) return "loading";
-    if (state === "submitting" || state === "success" || state === "error")
-      return state;
+    if (state === "submitting" || state === "success" || state === "error") return state;
     if (!isConnected || !address) return "not_connected";
     if (!user?.github_id) return "github_not_linked";
     if (isBlocked) return "blocked";
@@ -217,7 +193,9 @@ export function ClaimButton({
           {errorCode === "COOLDOWN" && "Wait until your next eligible time."}
           {errorCode === "RATE_LIMIT" && "Too many requests. Try again in a minute."}
           {errorCode === "CLAIM_FAILED" && "Claim failed. Please try again."}
-          {!["GITHUB_NOT_LINKED", "PENDING_REVIEW", "BLOCKED", "COOLDOWN", "RATE_LIMIT", "CLAIM_FAILED"].includes(errorCode) && `Error: ${errorCode}`}
+          {!["GITHUB_NOT_LINKED", "PENDING_REVIEW", "BLOCKED", "COOLDOWN", "RATE_LIMIT", "CLAIM_FAILED"].includes(
+            errorCode,
+          ) && `Error: ${errorCode}`}
         </p>
       )}
     </div>

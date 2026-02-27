@@ -1,10 +1,10 @@
 "use client";
 
-import { Wallet } from "lucide-react";
-import { RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
-import { useAccount } from "wagmi";
 import { Address } from "@scaffold-ui/components";
+import { Wallet } from "lucide-react";
 import { baseSepolia } from "viem/chains";
+import { useAccount } from "wagmi";
+import { RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { CardSkeleton } from "~~/components/skeletons/CardSkeleton";
 
 export function FaucetCard() {
@@ -22,9 +22,7 @@ export function FaucetCard() {
       </div>
       {isConnected && address ? (
         <div className="space-y-2">
-          <p className="text-xs text-zinc-500 dark:text-zinc-500 uppercase tracking-wider">
-            Connected
-          </p>
+          <p className="text-xs text-zinc-500 dark:text-zinc-500 uppercase tracking-wider">Connected</p>
           <Address
             address={address}
             chain={baseSepolia}
@@ -33,9 +31,7 @@ export function FaucetCard() {
         </div>
       ) : (
         <div className="flex flex-col items-start gap-3">
-          <p className="text-sm text-zinc-600 dark:text-zinc-400">
-            Connect your wallet to request testnet ETH.
-          </p>
+          <p className="text-sm text-zinc-600 dark:text-zinc-400">Connect your wallet to request testnet ETH.</p>
           <RainbowKitCustomConnectButton />
         </div>
       )}
