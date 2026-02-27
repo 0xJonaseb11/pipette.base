@@ -40,3 +40,14 @@ export interface SybilScoreBreakdown {
   onchainHistory: number;
   walletAge: number;
 }
+
+/** GitHub profile fields we derive and store (never store the OAuth token). */
+export interface GitHubProfile {
+  github_id: string;
+  login: string;
+  account_age_days: number;
+  public_repos: number;
+  followers: number;
+  following: number;
+  has_email: boolean;
+}
