@@ -1,86 +1,103 @@
-# Welcome to Scaffold-ETH 2 Contributing Guide
+# Contributing to Pipette
 
-Thank you for investing your time in contributing to Scaffold-ETH 2!
+Thanks for contributing to Pipette — the Base Sepolia developer faucet.
 
-This guide aims to provide an overview of the contribution workflow to help us make the contribution process effective for everyone involved.
+This guide covers how we work: commit conventions, pull request quality, and the contribution workflow.
 
-## About the Project
+## About the project
 
-Scaffold-ETH 2 is a minimal and forkable repo providing builders with a starter kit to build decentralized applications on Ethereum.
+Pipette is a controlled ETH distribution platform on Base Sepolia for developers. It uses GitHub OAuth for identity, anti-sybil scoring, and a treasury refill flow. See the [README](README.md) for setup and architecture.
 
-Read the [README](README.md) to get an overview of the project.
+## Commit conventions
 
-### Vision
+We use a **type-prefixed** commit style so history stays clear and consistent.
 
-The goal of Scaffold-ETH 2 is to provide the primary building blocks for a decentralized application.
+### Format
 
-The repo can be forked to include integrations and more features, but we want to keep the master branch simple and minimal.
+```
+[type]: short description
+```
 
-### Project Status
+- **Lowercase** after the colon; no period at the end.
+- **Present tense** when it makes sense (e.g. “add rate limit”, “fix claim validation”).
+- Keep the **summary line under ~72 characters**; add a body only if you need to explain why.
 
-The project is under active development.
+### Types we use
 
-You can view the open Issues, follow the development process and contribute to the project.
+| Type     | Use for |
+|----------|--------|
+| `feat`   | New feature or user-facing change |
+| `fix`    | Bug fix |
+| `chore`  | Tooling, config, abuse protection, nonce/verification logic |
+| `update` | Backend services, schema, UI scaffolding, refactors |
+| `refs`   | Merge conflicts, branch/reference cleanup |
+| `docs`   | README, CONTRIBUTING, or other docs only |
 
-## Getting started
+### Examples
 
-You can contribute to this repo in many ways:
+```text
+[chore]: abuse protection + nonce verification
+[update]: ui scaffolding
+[update]: backend service + tightening schema
+[fix]: build errors post service tightening
+[refs]: merge conflicts
+[feat]: admin analytics dashboard
+[docs]: add env var table to README
+```
 
-- Solve open issues
-- Report bugs or feature requests
-- Improve the documentation
+Use these types and this format for every commit so PRs and history stay easy to follow.
 
-Contributions are made via Issues and Pull Requests (PRs). A few general guidelines for contributions:
+## Pull requests
 
-- Search for existing Issues and PRs before creating your own.
-- Contributions should only fix/add the functionality in the issue OR address style issues, not both.
-- If you're running into an error, please give context. Explain what you're trying to do and how to reproduce the error.
-- Please use the same formatting in the code repository. You can configure your IDE to do it by using the prettier / linting config files included in each package.
-- If applicable, please edit the README.md file to reflect the changes.
+### Before opening a PR
 
-### Issues
+- Search existing issues and PRs to avoid duplicates.
+- One PR should focus on **one concern** (one feature, one fix, or one refactor), not mixed.
+- Run `yarn next:build` and fix any failures; the pre-commit hook runs lint and type-check.
 
-Issues should be used to report problems, request a new feature, or discuss potential changes before a PR is created.
+### PR quality
 
-#### Solve an issue
+We merge PRs that are easy to review and maintain. Please:
 
-Scan through our [existing issues](https://github.com/scaffold-eth/scaffold-eth-2/issues) to find one that interests you.
+1. **Title**  
+   Use a short, accurate title (can match your best commit message, e.g. `[update]: faucet claim button states`).
 
-If a contributor is working on the issue, they will be assigned to the individual. If you find an issue to work on, you are welcome to assign it to yourself and open a PR with a fix for it.
+2. **Description**  
+   - What changed and why (bullet points are fine).  
+   - Link the issue if there is one.  
+   - Screenshots or steps for UI/flow changes.
 
-#### Create a new issue
+3. **Commits**  
+   - Follow the [commit conventions](#commit-conventions) above.  
+   - Prefer a few clear commits over one large or many tiny ones.
 
-If a related issue doesn't exist, you can open a new issue.
+4. **Code**  
+   - Match existing style (Prettier/ESLint); the repo config is the source of truth.  
+   - No commented-out code or debug logs unless they’re temporary and called out in the PR.
 
-Some tips to follow when you are creating an issue:
+### Process
 
-- Provide as much context as possible. Over-communicate to give the most details to the reader.
-- Include the steps to reproduce the issue or the reason for adding the feature.
-- Screenshots, videos etc., are highly appreciated.
+We use a **fork-and-pull** workflow:
 
-### Pull Requests
+1. Fork the repo and clone your fork.
+2. Create a branch with a descriptive name (e.g. `update/faucet-claim-flow`).
+3. Make changes and commit using the conventions above.
+4. Push to your fork and open a PR against the target branch.
+5. Address review feedback and keep the PR up to date (rebase or merge as the team prefers).
 
-#### Pull Request Process
+PRs are merged when approved; we may squash commits on merge to keep main history clean.
 
-We follow the ["fork-and-pull" Git workflow](https://github.com/susam/gitpr)
+## Issues
 
-1. Fork the repo
-2. Clone the project
-3. Create a new branch with a descriptive name
-4. Commit your changes to the new branch
-5. Push changes to your fork
-6. Open a PR in our repository and tag one of the maintainers to review your PR
+- **Bugs / features:** Open an issue with clear context: what you did, what you expected, and what happened. Steps to reproduce and screenshots help a lot.
+- **Working on an issue:** Comment or assign yourself, then open a PR that references the issue. Use a commit message that matches the work (e.g. `[fix]: claim cooldown for pending users`).
 
-Here are some tips for a high-quality pull request:
+## Code style and tooling
 
-- Create a title for the PR that accurately defines the work done.
-- Structure the description neatly to make it easy to consume by the readers. For example, you can include bullet points and screenshots instead of having one large paragraph.
-- Add the link to the issue if applicable.
-- Have a good commit message that summarises the work done.
+- Use the project’s Prettier and ESLint configs; run `yarn format` and `yarn lint` (or the package-specific scripts) before pushing.
+- TypeScript: strict mode, no `any`; use the shared types under `packages/nextjs/types` where applicable.
+- If you add env vars or config, update `.env.example` and the README (or other docs) so others can run the app.
 
-Once you submit your PR:
+---
 
-- We may ask questions, request additional information or ask for changes to be made before a PR can be merged. Please note that these are to make the PR clear for everyone involved and aims to create a frictionless interaction process.
-- As you update your PR and apply changes, mark each conversation resolved.
-
-Once the PR is approved, we'll "squash-and-merge" to keep the git commit history clean.
+If something in this guide is unclear or you’d like to extend it, open an issue or suggest a change in a PR.
