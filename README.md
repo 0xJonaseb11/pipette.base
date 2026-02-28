@@ -21,20 +21,22 @@ yarn start
 
 Open http://localhost:3000. Faucet claims need steps 2–4.
 
-**2. Env** (in `packages/nextjs/`)
+**2. Env** (in `packages/nextjs/` for local; in Vercel/host for production)
 
 ```sh
 cp .env.example .env.local
 ```
 
-Edit `.env.local`. Required:
+Edit `.env.local`. Required for the faucet (and claim) to work:
 
 ```sh
 NEXT_PUBLIC_SUPABASE_URL=          # Supabase project URL
 NEXT_PUBLIC_SUPABASE_ANON_KEY=     # Supabase anon key
 SUPABASE_SERVICE_ROLE_KEY=         # Supabase service role key (server only)
-TREASURY_PRIVATE_KEY=              # Base Sepolia wallet private key (treasury)
+TREASURY_PRIVATE_KEY=              # Base Sepolia wallet private key (treasury) — required for /api/treasury/balance and /api/claim
 ```
+
+If `TREASURY_PRIVATE_KEY` is not set in production, the treasury balance shows "—" and claim returns a clear error. Set it (and optionally `TREASURY_ADDRESS`) in your host's env (e.g. Vercel → Project → Settings → Environment Variables).
 
 Optional:
 
@@ -47,7 +49,8 @@ CLAIM_COOLDOWN_HOURS=24            # Hours between claims per user
 **3. Supabase**
 
 - SQL editor: run `packages/nextjs/supabase/schema.sql` (includes RLS so only the API can access data).
-- Auth → Providers: enable GitHub. Add redirect URL `http://localhost:3000/faucet` (and your production URL, e.g. `https://your-app.vercel.app/faucet`) in Supabase URL configuration.
+- Auth → Providers: enable GitHub. In **URL Configuration**: set **Site URL** to your production URL (e.g. `https://pipette-base.vercel.app`) so GitHub OAuth redirects back to the app, not localhost. Add `http://localhost:3000/faucet` and `https://your-app.vercel.app/faucet` to **Redirect URLs**.
+- In production (e.g. Vercel), set `NEXT_PUBLIC_APP_URL` to that same URL (e.g. `https://pipette-base.vercel.app`) so the "Connect GitHub" link uses the correct redirect.
 
 **4. Treasury**
 
