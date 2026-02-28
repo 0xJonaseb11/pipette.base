@@ -30,6 +30,16 @@ create table public.treasury_snapshots (
   recorded_at timestamptz default now()
 );
 
+-- Support messages (contact form)
+create table public.support_messages (
+  id uuid primary key default gen_random_uuid(),
+  email text not null,
+  body text not null,
+  created_at timestamptz default now()
+);
+
+create index on public.support_messages(created_at);
+
 -- Indexes
 create index on public.users(wallet_address);
 create index on public.users(status);
@@ -57,9 +67,10 @@ $$;
 alter table public.users enable row level security;
 alter table public.claim_history enable row level security;
 alter table public.treasury_snapshots enable row level security;
+alter table public.support_messages enable row level security;
 
--- Explicit: anon cannot read or modify any table (API uses service_role only)
 create policy "anon_no_users" on public.users for all to anon using (false) with check (false);
 create policy "anon_no_claim_history" on public.claim_history for all to anon using (false) with check (false);
 create policy "anon_no_treasury_snapshots" on public.treasury_snapshots for all to anon using (false) with check (false);
+create policy "anon_no_support_messages" on public.support_messages for all to anon using (false) with check (false);
 

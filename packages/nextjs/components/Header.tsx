@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Droplets } from "lucide-react";
+import { Droplets, LifeBuoy } from "lucide-react";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import { RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
@@ -18,6 +18,7 @@ type HeaderMenuLink = {
 export const menuLinks: HeaderMenuLink[] = [
   { label: "Home", href: "/" },
   { label: "Faucet", href: "/faucet", icon: <Droplets className="h-4 w-4" /> },
+  { label: "Support", href: "/support", icon: <LifeBuoy className="h-4 w-4" /> },
 ];
 
 export const HeaderMenuLinks = () => {

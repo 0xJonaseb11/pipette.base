@@ -132,6 +132,15 @@ export async function updateUserStatus(address: string, status: UserStatus): Pro
   }
 }
 
+export async function createSupportMessage(email: string, body: string): Promise<void> {
+  const supabase = getServiceClient();
+  const { error } = await supabase.from("support_messages").insert({
+    email: email.trim().toLowerCase(),
+    body: body.trim(),
+  });
+  if (error) throw error;
+}
+
 export async function recordClaim(address: string, amountEth: string, txHash: string): Promise<void> {
   const supabase = getServiceClient();
   const walletAddress = address.toLowerCase();

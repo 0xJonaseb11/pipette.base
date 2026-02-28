@@ -32,6 +32,12 @@ export const Footer = () => {
             <Link href="/privacy" className="link">
               Privacy
             </Link>
+            <span className="text-base-content/40" aria-hidden>
+              ·
+            </span>
+            <Link href="/support" className="link">
+              Support
+            </Link>
             {STATUS_PAGE_URL && (
               <>
                 <span className="text-base-content/40" aria-hidden>
