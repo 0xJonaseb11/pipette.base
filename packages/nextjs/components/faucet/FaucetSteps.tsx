@@ -30,7 +30,9 @@ export function FaucetSteps({ walletConnected, githubLinked, canClaim }: Props) 
           >
             {step.done ? <CheckCircle className="h-4 w-4" /> : <Circle className="h-4 w-4" />}
           </div>
-          <span className={`text-sm font-medium hidden sm:inline ${step.done ? "text-base-content" : "text-base-content/70"}`}>
+          <span
+            className={`text-sm font-medium hidden sm:inline ${step.done ? "text-base-content" : "text-base-content/70"}`}
+          >
             {step.label}
           </span>
           {i < steps.length - 1 && <div className="w-4 h-0.5 bg-base-300 mx-1 sm:mx-2" aria-hidden />}

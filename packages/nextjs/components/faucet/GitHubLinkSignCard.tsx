@@ -1,7 +1,7 @@
 "use client";
 
-import { Loader2, Shield } from "lucide-react";
 import { useState } from "react";
+import { Loader2, Shield } from "lucide-react";
 import { useSignMessage } from "wagmi";
 
 type Props = {
