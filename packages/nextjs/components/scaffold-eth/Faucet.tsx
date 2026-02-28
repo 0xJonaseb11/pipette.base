@@ -7,6 +7,7 @@ import { hardhat } from "viem/chains";
 import { useAccount } from "wagmi";
 import { BanknotesIcon } from "@heroicons/react/24/outline";
 import { useTargetNetwork, useTransactor } from "~~/hooks/scaffold-eth";
+import { getBlockExplorerAddressLink } from "~~/utils/scaffold-eth/networks";
 import { notification } from "~~/utils/scaffold-eth";
 
 // Account index to use from generated hardhat accounts.
@@ -102,9 +103,7 @@ export const Faucet = () => {
                 <Address
                   address={faucetAddress}
                   onlyEnsOrAddress
-                  blockExplorerAddressLink={
-                    targetNetwork.id === hardhat.id ? `/blockexplorer/address/${faucetAddress}` : undefined
-                  }
+                  blockExplorerAddressLink={getBlockExplorerAddressLink(targetNetwork, faucetAddress)}
                 />
               </div>
               <div>
