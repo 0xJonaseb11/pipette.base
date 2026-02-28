@@ -24,7 +24,7 @@ export function FaucetSteps({ walletConnected, githubLinked, canClaim }: Props) 
           <div
             className={`flex items-center justify-center w-8 h-8 rounded-full border-2 transition-colors ${
               step.done
-                ? "border-emerald-500 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
+                ? "border-emerald-500 bg-emerald-500/10 text-emerald-600"
                 : "border-base-300 text-base-content/40"
             }`}
           >

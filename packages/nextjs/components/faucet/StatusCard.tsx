@@ -47,14 +47,12 @@ export function StatusCard({ user, loading }: Props) {
 
   if (!user) {
     return (
-      <div className="rounded-xl border border-zinc-200 dark:border-base-300 bg-base-100 p-6">
-        <div className="flex items-center gap-2 text-zinc-600 dark:text-base-content/80 mb-3">
+      <div className="rounded-xl border border-base-300 bg-base-100 p-6">
+        <div className="flex items-center gap-2 text-base-content/80 mb-3">
           <Clock className="h-4 w-4" />
           <span className="text-sm font-medium">Status</span>
         </div>
-        <p className="text-sm text-zinc-600 dark:text-base-content/80">
-          Connect your wallet and link GitHub to see your status.
-        </p>
+        <p className="text-sm text-base-content/80">Connect your wallet and link GitHub to see your status.</p>
       </div>
     );
   }
@@ -63,8 +61,8 @@ export function StatusCard({ user, loading }: Props) {
     user.status === "active" ? "Eligible" : user.status === "pending" ? "Pending approval" : "Restricted";
 
   return (
-    <div className="rounded-xl border border-zinc-200 dark:border-base-300 bg-base-100 p-6 space-y-4">
-      <div className="flex items-center gap-2 text-zinc-600 dark:text-base-content/80">
+    <div className="rounded-xl border border-base-300 bg-base-100 p-6 space-y-4">
+      <div className="flex items-center gap-2 text-base-content/80">
         <Clock className="h-4 w-4" />
         <span className="text-sm font-medium">Status</span>
       </div>
@@ -74,22 +72,16 @@ export function StatusCard({ user, loading }: Props) {
         ) : (
           <div className="h-5 w-5 rounded-full border-2 border-amber-500" />
         )}
-        <span className="font-medium text-zinc-900 dark:text-base-content capitalize">{statusLabel}</span>
+        <span className="font-medium text-base-content capitalize">{statusLabel}</span>
       </div>
       {user.last_claim_at && (
-        <p className="text-sm text-zinc-600 dark:text-base-content/80">
-          Last claim: {formatPast(new Date(user.last_claim_at))}
-        </p>
+        <p className="text-sm text-base-content/80">Last claim: {formatPast(new Date(user.last_claim_at))}</p>
       )}
       {user.status === "active" && (
-        <p className="text-sm text-zinc-600 dark:text-base-content/80">
-          Next eligible: {formatNextEligible(user.last_claim_at)}
-        </p>
+        <p className="text-sm text-base-content/80">Next eligible: {formatNextEligible(user.last_claim_at)}</p>
       )}
       {user.total_claimed > 0 && (
-        <p className="text-sm text-zinc-500 dark:text-base-content/60">
-          Total claimed: {Number(user.total_claimed).toFixed(4)} ETH
-        </p>
+        <p className="text-sm text-base-content/60">Total claimed: {Number(user.total_claimed).toFixed(4)} ETH</p>
       )}
     </div>
   );

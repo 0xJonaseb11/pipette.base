@@ -146,22 +146,25 @@ export default function FaucetPage() {
   };
 
   return (
-    <div className="min-h-[80vh] bg-base-200">
+    <div
+      className="min-h-[80vh] bg-base-200"
+      style={{ background: "linear-gradient(180deg, var(--color-base-200) 0%, var(--color-base-300) 100%)" }}
+    >
       <div className="max-w-2xl mx-auto px-4 py-8 sm:py-12">
         {/* Header */}
         <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-base-100 border border-zinc-200 dark:border-base-300">
-              <Droplets className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+            <div className="p-2.5 rounded-xl bg-base-100 border border-base-300">
+              <Droplets className="h-6 w-6 text-blue-600" />
             </div>
             <div>
-              <h1 className="text-xl font-semibold text-zinc-900 dark:text-base-content">Pipette</h1>
-              <p className="text-sm text-zinc-500 dark:text-base-content/70">Base Sepolia developer faucet</p>
+              <h1 className="text-xl font-semibold text-base-content">Pipette</h1>
+              <p className="text-sm text-base-content/70">Base Sepolia developer faucet</p>
             </div>
           </div>
-          <div className="rounded-xl border border-zinc-200 dark:border-base-300 bg-base-100 px-4 py-2.5">
-            <p className="text-xs text-zinc-500 dark:text-base-content/70 uppercase tracking-wider">Treasury</p>
-            <p className="text-lg font-semibold text-zinc-900 dark:text-base-content tabular-nums">
+          <div className="rounded-xl border border-base-300 bg-base-100 px-4 py-2.5">
+            <p className="text-xs text-base-content/70 uppercase tracking-wider">Treasury</p>
+            <p className="text-lg font-semibold text-base-content tabular-nums">
               {treasuryBalance != null ? `${Number(treasuryBalance).toFixed(4)} ETH` : "—"}
             </p>
           </div>
@@ -206,9 +209,9 @@ export default function FaucetPage() {
         )}
 
         {/* Claim section */}
-        <div className="mt-8 pt-8 border-t border-zinc-200 dark:border-base-300">
+        <div className="mt-8 pt-8 border-t border-base-300">
           <div className="flex flex-col items-center justify-center gap-2">
-            <p className="text-sm text-zinc-600 dark:text-base-content/80 text-center max-w-md">
+            <p className="text-sm text-base-content/80 text-center max-w-md">
               Ethereum sign-in: sign a message to prove wallet ownership. No gas, no transaction. Secure and free.
             </p>
             <ClaimButton
