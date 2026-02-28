@@ -111,8 +111,10 @@ export default function FaucetPage() {
   const showGitHubBanner = Boolean(isConnected && address && user && !user.github_id);
   const nextEligibleAt = user ? getNextEligibleAt(user.last_claim_at) : null;
   const claimAmount = user?.status === "active" ? getClaimAmountEth(user.sybil_score) : null;
-  const canClaim =
-    Boolean(isConnected && address && user?.github_id && user?.status === "active" && !(user?.last_claim_at && nextEligibleAt && new Date(nextEligibleAt) > new Date()) && claimAmount);
+  const hasCooldown = Boolean(user?.last_claim_at && nextEligibleAt && new Date(nextEligibleAt) > new Date());
+  const canClaim = Boolean(
+    isConnected && address && user?.github_id && user?.status === "active" && !hasCooldown && claimAmount,
+  );
 
   const handleGitHubConnect = () => {
     const origin = typeof window !== "undefined" ? window.location.origin : "";
