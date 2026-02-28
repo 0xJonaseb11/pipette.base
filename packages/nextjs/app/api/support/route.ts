@@ -1,12 +1,43 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createSupportMessage } from "~~/services/supabaseService";
+import { sendSupportNotification } from "~~/services/supportEmailService";
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const BODY_MIN = 10;
 const BODY_MAX = 5000;
 
+const RATE_LIMIT_WINDOW_MS = 60 * 1000;
+const RATE_LIMIT_MAX = 5;
+const rateLimitStore: { key: string; timestamps: number[] }[] = [];
+
+function getClientIp(req: NextRequest): string {
+  return req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? req.headers.get("x-real-ip") ?? "unknown";
+}
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const cut = now - RATE_LIMIT_WINDOW_MS;
+  let entry = rateLimitStore.find(e => e.key === ip);
+  if (!entry) {
+    entry = { key: ip, timestamps: [] };
+    rateLimitStore.push(entry);
+  }
+  entry.timestamps = entry.timestamps.filter(t => t > cut);
+  if (entry.timestamps.length >= RATE_LIMIT_MAX) return true;
+  entry.timestamps.push(now);
+  return false;
+}
+
 export async function POST(req: NextRequest) {
   try {
+    const ip = getClientIp(req);
+    if (isRateLimited(ip)) {
+      return NextResponse.json(
+        { error: "Too many requests. Please try again in a minute." },
+        { status: 429 },
+      );
+    }
+
     const body = await req.json();
     const { email, message } = body as { email?: string; message?: string };
 
@@ -39,6 +70,12 @@ export async function POST(req: NextRequest) {
     }
 
     await createSupportMessage(trimmedEmail, trimmedMessage);
+
+    const emailResult = await sendSupportNotification(trimmedEmail, trimmedMessage);
+    if (!emailResult.ok) {
+      console.error("Support email failed:", emailResult.error);
+    }
+
     return NextResponse.json({ ok: true });
   } catch (err) {
     console.error("Support message error:", err);
