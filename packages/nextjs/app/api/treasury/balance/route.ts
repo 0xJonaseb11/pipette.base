@@ -4,10 +4,7 @@ import { getTreasuryBalance } from "~~/services/treasuryService";
 
 export async function GET() {
   if (!process.env.TREASURY_PRIVATE_KEY) {
-    return NextResponse.json(
-      { data: { balanceEth: null }, error: "NOT_CONFIGURED" },
-      { status: 200 },
-    );
+    return NextResponse.json({ data: { balanceEth: null }, error: "NOT_CONFIGURED" }, { status: 200 });
   }
   try {
     const balanceWei = await getTreasuryBalance();
@@ -16,10 +13,7 @@ export async function GET() {
   } catch (err) {
     const message = err instanceof Error ? err.message : "";
     if (message.includes("TREASURY_ADDRESS does not match")) {
-      return NextResponse.json(
-        { data: { balanceEth: null }, error: "TREASURY_MISMATCH" },
-        { status: 200 },
-      );
+      return NextResponse.json({ data: { balanceEth: null }, error: "TREASURY_MISMATCH" }, { status: 200 });
     }
     return NextResponse.json({ data: null, error: "FETCH_FAILED" }, { status: 500 });
   }

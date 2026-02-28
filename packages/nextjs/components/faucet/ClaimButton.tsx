@@ -192,12 +192,16 @@ export function ClaimButton({
             transition-colors min-w-[200px]
             ${isError ? "bg-zinc-200 dark:bg-base-300 text-zinc-900 dark:text-base-content hover:bg-zinc-300 dark:hover:bg-base-300/90" : ""}
             ${derivedState === "ready" ? "bg-blue-600 hover:bg-blue-700 text-white" : ""}
-            ${!isError && derivedState !== "ready" && derivedState !== "github_not_linked"
-              ? "bg-zinc-200 dark:bg-base-300 text-zinc-500 dark:text-base-content/70 cursor-not-allowed"
-              : ""}
-            ${derivedState === "github_not_linked" && onConnectGitHub
-              ? "bg-blue-600 hover:bg-blue-700 text-white cursor-pointer"
-              : ""}
+            ${
+              !isError && derivedState !== "ready" && derivedState !== "github_not_linked"
+                ? "bg-zinc-200 dark:bg-base-300 text-zinc-500 dark:text-base-content/70 cursor-not-allowed"
+                : ""
+            }
+            ${
+              derivedState === "github_not_linked" && onConnectGitHub
+                ? "bg-blue-600 hover:bg-blue-700 text-white cursor-pointer"
+                : ""
+            }
           `}
         >
           {config.icon}
@@ -217,9 +221,17 @@ export function ClaimButton({
             "Treasury is low. Please wait for our next refill or consider donating testnet ETH to help."}
           {errorCode === "DAILY_CAP_REACHED" && "Daily distribution cap reached. Try again tomorrow."}
           {errorCode === "CLAIM_FAILED" && "Claim failed. Please try again."}
-          {!["GITHUB_NOT_LINKED", "PENDING_REVIEW", "BLOCKED", "COOLDOWN", "RATE_LIMIT", "TREASURY_NOT_CONFIGURED", "INSUFFICIENT_TREASURY", "DAILY_CAP_REACHED", "CLAIM_FAILED"].includes(
-            errorCode,
-          ) && `Error: ${errorCode}`}
+          {![
+            "GITHUB_NOT_LINKED",
+            "PENDING_REVIEW",
+            "BLOCKED",
+            "COOLDOWN",
+            "RATE_LIMIT",
+            "TREASURY_NOT_CONFIGURED",
+            "INSUFFICIENT_TREASURY",
+            "DAILY_CAP_REACHED",
+            "CLAIM_FAILED",
+          ].includes(errorCode) && `Error: ${errorCode}`}
         </p>
       )}
     </div>

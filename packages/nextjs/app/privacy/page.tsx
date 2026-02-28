@@ -13,8 +13,8 @@ export default function PrivacyPage() {
         <section>
           <h2 className="text-lg font-semibold text-base-content mt-8 mb-3">1. Overview</h2>
           <p>
-            Pipette (&quot;we&quot;, &quot;our&quot;, &quot;the app&quot;) is a Base Sepolia developer faucet. We are committed to
-            protecting your privacy. This policy describes what data we collect and how we use it.
+            Pipette (&quot;we&quot;, &quot;our&quot;, &quot;the app&quot;) is a Base Sepolia developer faucet. We are
+            committed to protecting your privacy. This policy describes what data we collect and how we use it.
           </p>
         </section>
 
@@ -22,8 +22,8 @@ export default function PrivacyPage() {
           <h2 className="text-lg font-semibold text-base-content mt-8 mb-3">2. Data We Collect</h2>
           <ul className="list-disc pl-6 space-y-2">
             <li>
-              <strong>Wallet address.</strong> When you connect your wallet and claim testnet ETH, we store your
-              wallet address to enforce cooldowns and prevent abuse.
+              <strong>Wallet address.</strong> When you connect your wallet and claim testnet ETH, we store your wallet
+              address to enforce cooldowns and prevent abuse.
             </li>
             <li>
               <strong>GitHub profile data.</strong> If you link GitHub, we receive your public GitHub ID, username,
@@ -31,8 +31,8 @@ export default function PrivacyPage() {
               OAuth tokens.
             </li>
             <li>
-              <strong>Claim history.</strong> We record when you claim, amounts, and transaction hashes for
-              analytics and anti-abuse.
+              <strong>Claim history.</strong> We record when you claim, amounts, and transaction hashes for analytics
+              and anti-abuse.
             </li>
           </ul>
         </section>
@@ -52,25 +52,22 @@ export default function PrivacyPage() {
         <section>
           <h2 className="text-lg font-semibold text-base-content mt-8 mb-3">4. Data Storage</h2>
           <p>
-            Data is stored in Supabase (database and authentication). Access is restricted and protected. Claim
-            history and wallet data are retained as long as needed to operate the faucet.
+            Data is stored in Supabase (database and authentication). Access is restricted and protected. Claim history
+            and wallet data are retained as long as needed to operate the faucet.
           </p>
         </section>
 
         <section>
           <h2 className="text-lg font-semibold text-base-content mt-8 mb-3">5. Third Parties</h2>
           <p>
-            We use Supabase (data storage), Coinbase CDP (faucet refill), and Vercel (hosting). Each has its own
-            privacy policy. Your wallet interactions use standard Ethereum signing. We do not have access to your
-            private keys.
+            We use Supabase (data storage), Coinbase CDP (faucet refill), and Vercel (hosting). Each has its own privacy
+            policy. Your wallet interactions use standard Ethereum signing. We do not have access to your private keys.
           </p>
         </section>
 
         <section>
           <h2 className="text-lg font-semibold text-base-content mt-8 mb-3">6. Contact</h2>
-          <p>
-            For questions about this policy, reach out via the Pipette repository or community channels.
-          </p>
+          <p>For questions about this policy, reach out via the Pipette repository or community channels.</p>
         </section>
       </div>
     </div>

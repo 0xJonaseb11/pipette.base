@@ -21,15 +21,7 @@ export const getMetadata = ({
   keywords?: string[];
 }): Metadata => {
   const imageUrl = `${baseUrl.replace(/\/$/, "")}${imageRelativePath}`;
-  const defaultKeywords = [
-    "Base Sepolia",
-    "testnet ETH",
-    "faucet",
-    "African Web3",
-    "Base",
-    "Ethereum",
-    "developer",
-  ];
+  const defaultKeywords = ["Base Sepolia", "testnet ETH", "faucet", "African Web3", "Base", "Ethereum", "developer"];
   const keywordsList = keywords ?? defaultKeywords;
 
   return {

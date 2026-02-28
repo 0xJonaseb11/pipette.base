@@ -10,7 +10,6 @@
   "scripts": {
     "account": "yarn hardhat:account",
     "account:generate": "yarn workspace @se-2/hardhat account:generate",
-    "account:import": "yarn workspace @se-2/hardhat account:import",
     "account:reveal-pk": "yarn workspace @se-2/hardhat account:reveal-pk",
     "chain": "yarn hardhat:chain",
     "compile": "yarn hardhat:compile",
