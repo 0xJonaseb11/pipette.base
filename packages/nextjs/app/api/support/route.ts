@@ -73,7 +73,10 @@ export async function POST(req: NextRequest) {
 
     const emailResult = await sendSupportNotification(trimmedEmail, trimmedMessage);
     if (!emailResult.ok) {
-      console.error("Support email failed:", emailResult.error);
+      console.error("[Support] Email not sent (message is in Supabase). Reason:", emailResult.error);
+      if (!process.env.RESEND_API_KEY) {
+        console.error("[Support] Set RESEND_API_KEY in Vercel (or your host) Environment Variables to receive support emails in your inbox.");
+      }
     }
 
     return NextResponse.json({ ok: true });
