@@ -46,8 +46,8 @@ CLAIM_COOLDOWN_HOURS=24            # Hours between claims per user
 
 **3. Supabase**
 
-- SQL editor: run `packages/nextjs/supabase/schema.sql`.
-- Auth → Providers: enable GitHub, redirect URL `http://localhost:3000/faucet`.
+- SQL editor: run `packages/nextjs/supabase/schema.sql` (includes RLS so only the API can access data).
+- Auth → Providers: enable GitHub. Add redirect URL `http://localhost:3000/faucet` (and your production URL, e.g. `https://your-app.vercel.app/faucet`) in Supabase URL configuration.
 
 **4. Treasury**
 

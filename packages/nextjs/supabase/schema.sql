@@ -52,8 +52,14 @@ as $$
   where wallet_address = p_wallet_address;
 $$;
 
--- RLS: disable for service role, enable for anon
+-- RLS: service_role (API) bypasses RLS. anon/authenticated have no direct access.
+-- All mutations go through the API with wallet signature verification (Ethereum sign-in).
 alter table public.users enable row level security;
 alter table public.claim_history enable row level security;
 alter table public.treasury_snapshots enable row level security;
+
+-- Explicit: anon cannot read or modify any table (API uses service_role only)
+create policy "anon_no_users" on public.users for all to anon using (false) with check (false);
+create policy "anon_no_claim_history" on public.claim_history for all to anon using (false) with check (false);
+create policy "anon_no_treasury_snapshots" on public.treasury_snapshots for all to anon using (false) with check (false);
 

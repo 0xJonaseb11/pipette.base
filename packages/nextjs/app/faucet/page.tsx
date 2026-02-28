@@ -7,9 +7,12 @@ import { AntiSybilScore } from "~~/components/faucet/AntiSybilScore";
 import { ClaimButton } from "~~/components/faucet/ClaimButton";
 import { FaucetCard } from "~~/components/faucet/FaucetCard";
 import { GitHubConnectBanner } from "~~/components/faucet/GitHubConnectBanner";
+import { FaucetSteps } from "~~/components/faucet/FaucetSteps";
+import { GitHubLinkSignCard } from "~~/components/faucet/GitHubLinkSignCard";
 import { StatusCard } from "~~/components/faucet/StatusCard";
 import type { User } from "~~/types";
 import type { SybilScoreBreakdown } from "~~/types";
+import { parseSupabaseHash } from "~~/utils/parseSupabaseHash";
 
 const TREASURY_POLL_MS = 30_000;
 
@@ -34,6 +37,7 @@ export default function FaucetPage() {
   const [userLoading, setUserLoading] = useState(false);
   const [scoreBreakdown, setScoreBreakdown] = useState<SybilScoreBreakdown | null>(null);
   const [scoreLoading, setScoreLoading] = useState(false);
+  const [pendingLink, setPendingLink] = useState<{ providerToken: string } | null>(null);
 
   const fetchTreasury = useCallback(async () => {
     try {
@@ -90,6 +94,15 @@ export default function FaucetPage() {
     fetchUser();
   }, [fetchUser]);
 
+  // Handle GitHub OAuth callback: hash contains provider_token (Supabase reserves state)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const hash = window.location.hash;
+    if (!hash) return;
+    const { provider_token } = parseSupabaseHash(hash);
+    if (provider_token) setPendingLink({ providerToken: provider_token });
+  }, []);
+
   useEffect(() => {
     if (user?.github_id) fetchScore();
     else setScoreBreakdown(null);
@@ -98,17 +111,35 @@ export default function FaucetPage() {
   const showGitHubBanner = Boolean(isConnected && address && user && !user.github_id);
   const nextEligibleAt = user ? getNextEligibleAt(user.last_claim_at) : null;
   const claimAmount = user?.status === "active" ? getClaimAmountEth(user.sybil_score) : null;
+  const hasCooldown = Boolean(user?.last_claim_at && nextEligibleAt && new Date(nextEligibleAt) > new Date());
+  const canClaim = Boolean(
+    isConnected && address && user?.github_id && user?.status === "active" && !hasCooldown && claimAmount,
+  );
 
   const handleGitHubConnect = () => {
+    const origin = typeof window !== "undefined" ? window.location.origin : "";
+    const redirectTo = `${origin}/faucet`;
     const url =
       process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
         ? `${process.env.NEXT_PUBLIC_SUPABASE_URL}/auth/v1/authorize?provider=github&redirect_to=${encodeURIComponent(
-            typeof window !== "undefined" ? `${window.location.origin}/faucet` : "",
+            redirectTo,
           )}`
         : null;
     if (url) window.location.href = url;
     else if (typeof window !== "undefined") window.alert("GitHub OAuth is not configured.");
   };
+
+  const clearHashAndPendingLink = useCallback(() => {
+    if (typeof window !== "undefined") {
+      window.history.replaceState(null, "", window.location.pathname + window.location.search);
+    }
+    setPendingLink(null);
+  }, []);
+
+  const handleLinkSuccess = useCallback(() => {
+    clearHashAndPendingLink();
+    fetchUser();
+  }, [clearHashAndPendingLink, fetchUser]);
 
   const handleClaimSuccess = () => {
     fetchUser();
@@ -136,8 +167,26 @@ export default function FaucetPage() {
           </div>
         </header>
 
-        {/* GitHub banner */}
-        {showGitHubBanner && (
+        <FaucetSteps
+          walletConnected={Boolean(isConnected && address)}
+          githubLinked={Boolean(user?.github_id)}
+          canClaim={Boolean(canClaim)}
+        />
+
+        {/* GitHub OAuth callback: sign to complete linking (Ethereum sign-in); uses currently connected wallet */}
+        {pendingLink && address && (
+          <div className="mb-6">
+            <GitHubLinkSignCard
+              walletAddress={address}
+              githubAccessToken={pendingLink.providerToken}
+              onSuccess={handleLinkSuccess}
+              onCancel={clearHashAndPendingLink}
+            />
+          </div>
+        )}
+
+        {/* GitHub banner: show when wallet connected but GitHub not linked and no pending callback */}
+        {showGitHubBanner && !pendingLink && (
           <div className="mb-6">
             <GitHubConnectBanner onConnect={handleGitHubConnect} loading={false} />
           </div>
@@ -159,8 +208,8 @@ export default function FaucetPage() {
         {/* Claim section */}
         <div className="mt-8 pt-8 border-t border-zinc-200 dark:border-base-300">
           <div className="flex flex-col items-center justify-center gap-2">
-            <p className="text-sm text-zinc-600 dark:text-base-content/80">
-              Sign a message to prove wallet ownership. No gas required.
+            <p className="text-sm text-zinc-600 dark:text-base-content/80 text-center max-w-md">
+              Ethereum sign-in: sign a message to prove wallet ownership. No gas, no transaction — secure and free.
             </p>
             <ClaimButton
               user={user ?? null}
