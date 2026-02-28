@@ -53,6 +53,11 @@ CLAIM_COOLDOWN_HOURS=24            # Hours between claims per user
 
 Fund the `TREASURY_PRIVATE_KEY` wallet with Base Sepolia ETH.
 
+**5. Treasury refill (optional, automated)**
+
+- **Vercel:** Set `CDP_API_KEY_ID`, `CDP_API_KEY_SECRET`, `TREASURY_ADDRESS`, and `CRON_SECRET` in the project. The app runs a cron job every 24 hours (`0 5 * * *` UTC) that requests faucet funds from Coinbase CDP to the treasury.
+- **Manual or external cron:** Run `cd packages/nextjs && npx tsx scripts/refillTreasury.ts` with the same env vars (and `TREASURY_ADDRESS`). CDP rate limit: 0.0001 ETH per request, 0.1 ETH per 24h per address.
+
 ---
 
 ### Scripts
@@ -63,6 +68,7 @@ Fund the `TREASURY_PRIVATE_KEY` wallet with Base Sepolia ETH.
 | `yarn next:build` | Build |
 | `yarn next:lint` | Lint |
 | `yarn format` | Format |
+| `cd packages/nextjs && npx tsx scripts/refillTreasury.ts` | Request CDP faucet funds to treasury (env: CDP_API_KEY_ID, CDP_API_KEY_SECRET, TREASURY_ADDRESS) |
 
 [CONTRIBUTING.md](CONTRIBUTING.md) · [LICENCE](LICENCE) (MIT)
 
