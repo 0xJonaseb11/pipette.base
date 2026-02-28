@@ -4,7 +4,6 @@ import Link from "next/link";
 import { Address } from "@scaffold-ui/components";
 import { ArrowRight, Droplets } from "lucide-react";
 import type { NextPage } from "next";
-import { baseSepolia } from "viem/chains";
 import { useAccount } from "wagmi";
 import { useTargetNetwork } from "~~/hooks/scaffold-eth";
 
