@@ -9,8 +9,14 @@ Get testnet ETH on Base Sepolia. Connect wallet, link GitHub, claim. Amounts dep
 
 ### Quick start
 
-1. Node 20+, Yarn. Run `yarn install` and `yarn start` from repo root. Open http://localhost:3000.
-2. In `packages/nextjs/`: copy `.env.example` to `.env.local`, set Supabase URL/keys and `TREASURY_PRIVATE_KEY`, run `supabase/schema.sql` in Supabase, enable GitHub in Auth.
+**Prerequisites:** Node 20+, Yarn, a [Supabase](https://supabase.com) project, a Base Sepolia wallet with testnet ETH (for the treasury).
+
+1. **Install:** From repo root run `yarn install`, then `yarn start`. App runs at http://localhost:3000 (home and faucet pages load; claims need step 2 and 3).
+2. **Env:** In `packages/nextjs/` copy `.env.example` to `.env.local`. 
+- Set at least: `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`, `TREASURY_PRIVATE_KEY`. Optionally set `TREASURY_ADDRESS`, `DAILY_DISTRIBUTION_CAP_ETH`, `CLAIM_COOLDOWN_HOURS`.
+3. **Supabase:** In your project’s SQL editor run the contents of `packages/nextjs/supabase/schema.sql`. 
+- In Authentication → Providers enable GitHub and set the redirect URL to `http://localhost:3000/faucet` (or your app URL).
+4. **Treasury:** Fund the wallet whose private key you set in `TREASURY_PRIVATE_KEY` with Base Sepolia ETH so the faucet can send claims.
 
 ### Scripts
 
