@@ -32,10 +32,7 @@ export async function POST(req: NextRequest) {
   try {
     const ip = getClientIp(req);
     if (isRateLimited(ip)) {
-      return NextResponse.json(
-        { error: "Too many requests. Please try again in a minute." },
-        { status: 429 },
-      );
+      return NextResponse.json({ error: "Too many requests. Please try again in a minute." }, { status: 429 });
     }
 
     const body = await req.json();
@@ -57,16 +54,10 @@ export async function POST(req: NextRequest) {
     }
     const trimmedMessage = message.trim();
     if (trimmedMessage.length < BODY_MIN) {
-      return NextResponse.json(
-        { error: `Message must be at least ${BODY_MIN} characters` },
-        { status: 400 },
-      );
+      return NextResponse.json({ error: `Message must be at least ${BODY_MIN} characters` }, { status: 400 });
     }
     if (trimmedMessage.length > BODY_MAX) {
-      return NextResponse.json(
-        { error: `Message must be at most ${BODY_MAX} characters` },
-        { status: 400 },
-      );
+      return NextResponse.json({ error: `Message must be at most ${BODY_MAX} characters` }, { status: 400 });
     }
 
     await createSupportMessage(trimmedEmail, trimmedMessage);
@@ -75,7 +66,9 @@ export async function POST(req: NextRequest) {
     if (!emailResult.ok) {
       console.error("[Support] Email not sent (message is in Supabase). Reason:", emailResult.error);
       if (!process.env.RESEND_API_KEY) {
-        console.error("[Support] Set RESEND_API_KEY in Vercel (or your host) Environment Variables to receive support emails in your inbox.");
+        console.error(
+          "[Support] Set RESEND_API_KEY in Vercel (or your host) Environment Variables to receive support emails in your inbox.",
+        );
       }
     }
 

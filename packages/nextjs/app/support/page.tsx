@@ -43,11 +43,7 @@ export default function SupportPage() {
           <p className="text-base-content/80">
             Thanks for reaching out. We have received your message and will get back to you at the email you provided.
           </p>
-          <button
-            type="button"
-            onClick={() => setSent(false)}
-            className="mt-4 btn btn-primary btn-sm"
-          >
+          <button type="button" onClick={() => setSent(false)} className="mt-4 btn btn-primary btn-sm">
             Send another message
           </button>
         </div>
@@ -94,9 +90,7 @@ export default function SupportPage() {
             className="textarea textarea-bordered w-full"
             disabled={loading}
           />
-          <p className="text-xs text-base-content/60 mt-1">
-            {message.length} / 5000 characters (min 10)
-          </p>
+          <p className="text-xs text-base-content/60 mt-1">{message.length} / 5000 characters (min 10)</p>
         </div>
         {error && <p className="text-sm text-red-600">{error}</p>}
         <button type="submit" disabled={loading} className="btn btn-primary gap-2">

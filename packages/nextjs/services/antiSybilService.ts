@@ -92,9 +92,9 @@ export async function computeSybilScore(
     Math.floor(profile.account_age_days / DAYS_PER_POINT_ACCOUNT_AGE),
   );
 
-  breakdown.publicRepos = Math.min(MAX_PUBLIC_REPOS_POINTS, profile.public_repos * POINTS_PER_REPO  );
+  breakdown.publicRepos = Math.min(MAX_PUBLIC_REPOS_POINTS, profile.public_repos * POINTS_PER_REPO);
 
-  breakdown.followers = Math.min(MAX_FOLLOWERS_POINTS, profile.followers * POINTS_PER_FOLLOWER  );
+  breakdown.followers = Math.min(MAX_FOLLOWERS_POINTS, profile.followers * POINTS_PER_FOLLOWER);
 
   breakdown.verifiedEmail = profile.has_email ? VERIFIED_EMAIL_POINTS : 0;
 
@@ -111,8 +111,7 @@ export async function computeSybilScore(
       ]);
       txCountEth = eth;
       txCountBase = base;
-    } catch {
-    }
+    } catch {}
 
     const totalTxCount = Math.max(txCountEth, txCountBase);
     breakdown.onchainHistory = Math.min(MAINNET_TX_POINTS, totalTxCount);

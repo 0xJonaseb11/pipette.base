@@ -36,8 +36,7 @@ export async function fetchGitHubProfile(accessToken: string): Promise<GitHubPro
       const emails = (await emailsRes.json()) as Array<{ email: string; verified: boolean }>;
       hasVerifiedEmail = emails.some(e => e.verified);
     }
-  } catch {
-  }
+  } catch {}
 
   return {
     github_id: String(data.id),

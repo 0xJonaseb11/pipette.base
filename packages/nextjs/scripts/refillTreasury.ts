@@ -1,5 +1,4 @@
 #!/usr/bin/env npx tsx
-
 import { requestFaucetFunds } from "../services/refillService";
 
 async function main() {

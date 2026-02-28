@@ -3,7 +3,10 @@ import { Resend } from "resend";
 const DEFAULT_TO = "sebejaz99@gmail.com";
 const DEFAULT_FROM = "Pipette Support <onboarding@resend.dev>";
 
-export async function sendSupportNotification(senderEmail: string, body: string): Promise<{ ok: boolean; error?: string }> {
+export async function sendSupportNotification(
+  senderEmail: string,
+  body: string,
+): Promise<{ ok: boolean; error?: string }> {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
     return { ok: false, error: "RESEND_API_KEY is not set" };
@@ -35,9 +38,5 @@ export async function sendSupportNotification(senderEmail: string, body: string)
 }
 
 function escapeHtml(s: string): string {
-  return s
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;");
+  return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 }

@@ -100,7 +100,9 @@
 /* Buttons: theme-aligned focus ring */
 .btn:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 2px var(--color-base-100), 0 0 0 4px var(--color-primary);
+  box-shadow:
+    0 0 0 2px var(--color-base-100),
+    0 0 0 4px var(--color-primary);
 }
 
 .link {
