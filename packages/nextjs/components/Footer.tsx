@@ -21,12 +21,7 @@ export const Footer = () => {
             <span className="text-base-content/40" aria-hidden>
               ·
             </span>
-            <a
-              href={BASE_SEPOLIA_EXPLORER}
-              target="_blank"
-              rel="noreferrer"
-              className="link"
-            >
+            <a href={BASE_SEPOLIA_EXPLORER} target="_blank" rel="noreferrer" className="link">
               Base Sepolia Explorer
             </a>
           </div>

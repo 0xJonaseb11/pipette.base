@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import { Address } from "@scaffold-ui/components";
+import { ArrowRight, Droplets } from "lucide-react";
 import type { NextPage } from "next";
 import { baseSepolia } from "viem/chains";
 import { useAccount } from "wagmi";
-import { ArrowRight, Droplets } from "lucide-react";
 import { useTargetNetwork } from "~~/hooks/scaffold-eth";
 
 const BASE_SEPOLIA_EXPLORER = "https://sepolia.basescan.org";
@@ -22,8 +22,7 @@ const Home: NextPage = () => {
         <div
           className="absolute inset-0 -z-10"
           style={{
-            background:
-              "linear-gradient(180deg, var(--color-base-200) 0%, var(--color-base-300) 100%)",
+            background: "linear-gradient(180deg, var(--color-base-200) 0%, var(--color-base-300) 100%)",
           }}
         />
         {/* Optional: very subtle droplet shape for depth (theme-aware) */}
@@ -41,8 +40,7 @@ const Home: NextPage = () => {
 
           {/* Main headline with accent on key word */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-base-content mb-5 leading-[1.1]">
-            Testnet ETH for{" "}
-            <span className="text-primary">Builders</span>
+            Testnet ETH for <span className="text-primary">Builders</span>
           </h1>
 
           {/* Single descriptive line */}
@@ -62,9 +60,7 @@ const Home: NextPage = () => {
           {/* Connected address: subtle, below CTA */}
           {connectedAddress && (
             <div className="mt-8 pt-8 border-t border-base-content/10">
-              <p className="text-xs uppercase tracking-wider text-base-content/50 mb-2">
-                Connected
-              </p>
+              <p className="text-xs uppercase tracking-wider text-base-content/50 mb-2">Connected</p>
               <Address
                 address={connectedAddress}
                 chain={targetNetwork}
@@ -74,7 +70,6 @@ const Home: NextPage = () => {
           )}
         </div>
       </section>
-
     </>
   );
 };
