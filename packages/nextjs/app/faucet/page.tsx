@@ -115,12 +115,12 @@ export default function FaucetPage() {
   };
 
   return (
-    <div className="min-h-[80vh] bg-zinc-50 dark:bg-base-200">
+    <div className="min-h-[80vh] bg-base-200">
       <div className="max-w-2xl mx-auto px-4 py-8 sm:py-12">
         {/* Header */}
         <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
           <div className="flex items-center gap-3">
-            <div className="p-2.5 rounded-xl bg-white dark:bg-base-100 border border-zinc-200 dark:border-base-300">
+            <div className="p-2.5 rounded-xl bg-base-100 border border-zinc-200 dark:border-base-300">
               <Droplets className="h-6 w-6 text-blue-600 dark:text-blue-400" />
             </div>
             <div>
@@ -128,7 +128,7 @@ export default function FaucetPage() {
               <p className="text-sm text-zinc-500 dark:text-base-content/70">Base Sepolia developer faucet</p>
             </div>
           </div>
-          <div className="rounded-xl border border-zinc-200 dark:border-base-300 bg-white dark:bg-base-100 px-4 py-2.5">
+          <div className="rounded-xl border border-zinc-200 dark:border-base-300 bg-base-100 px-4 py-2.5">
             <p className="text-xs text-zinc-500 dark:text-base-content/70 uppercase tracking-wider">Treasury</p>
             <p className="text-lg font-semibold text-zinc-900 dark:text-base-content tabular-nums">
               {treasuryBalance != null ? `${Number(treasuryBalance).toFixed(4)} ETH` : "—"}

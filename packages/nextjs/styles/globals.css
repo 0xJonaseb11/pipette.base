@@ -18,6 +18,7 @@
 @plugin "daisyui/theme" {
   name: "light";
 
+  /* Soft light theme – consistent across all pages */
   --color-primary: #93bbfb;
   --color-primary-content: #212638;
   --color-secondary: #dae8ff;
@@ -26,9 +27,9 @@
   --color-accent-content: #212638;
   --color-neutral: #212638;
   --color-neutral-content: #ffffff;
-  --color-base-100: #ffffff;
-  --color-base-200: #f4f8ff;
-  --color-base-300: #dae8ff;
+  --color-base-100: #fafbff;
+  --color-base-200: #f0f4fa;
+  --color-base-300: #e2eaf5;
   --color-base-content: #212638;
   --color-info: #93bbfb;
   --color-success: #34eeb6;

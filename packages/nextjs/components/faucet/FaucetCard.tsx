@@ -15,7 +15,7 @@ export function FaucetCard() {
   }
 
   return (
-    <div className="rounded-xl border border-zinc-200 dark:border-base-300 bg-white dark:bg-base-100 p-6">
+    <div className="rounded-xl border border-zinc-200 dark:border-base-300 bg-base-100 p-6">
       <div className="flex items-center gap-2 text-zinc-600 dark:text-base-content/80 mb-3">
         <Wallet className="h-4 w-4" />
         <span className="text-sm font-medium">Wallet</span>

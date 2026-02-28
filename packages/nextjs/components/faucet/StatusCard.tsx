@@ -47,7 +47,7 @@ export function StatusCard({ user, loading }: Props) {
 
   if (!user) {
     return (
-      <div className="rounded-xl border border-zinc-200 dark:border-base-300 bg-white dark:bg-base-100 p-6">
+      <div className="rounded-xl border border-zinc-200 dark:border-base-300 bg-base-100 p-6">
         <div className="flex items-center gap-2 text-zinc-600 dark:text-base-content/80 mb-3">
           <Clock className="h-4 w-4" />
           <span className="text-sm font-medium">Status</span>
@@ -63,7 +63,7 @@ export function StatusCard({ user, loading }: Props) {
     user.status === "active" ? "Eligible" : user.status === "pending" ? "Pending approval" : "Restricted";
 
   return (
-    <div className="rounded-xl border border-zinc-200 dark:border-base-300 bg-white dark:bg-base-100 p-6 space-y-4">
+    <div className="rounded-xl border border-zinc-200 dark:border-base-300 bg-base-100 p-6 space-y-4">
       <div className="flex items-center gap-2 text-zinc-600 dark:text-base-content/80">
         <Clock className="h-4 w-4" />
         <span className="text-sm font-medium">Status</span>
