@@ -19,12 +19,7 @@ import { isLinkMessageValid } from "~~/utils/linkMessage";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const {
-      walletAddress,
-      signature,
-      message,
-      githubAccessToken,
-    } = body as {
+    const { walletAddress, signature, message, githubAccessToken } = body as {
       walletAddress?: string;
       signature?: string;
       message?: string;
@@ -75,7 +70,7 @@ export async function POST(req: NextRequest) {
 
     await linkGitHub(walletAddress, profile);
 
-    const { score, breakdown } = await computeSybilScore(profile, walletAddress as `0x${string}`);
+    const { score } = await computeSybilScore(profile, walletAddress as `0x${string}`);
     await updateSybilScore(walletAddress, score);
     const status = getStatusFromScore(score);
     await updateUserStatus(walletAddress, status);
@@ -86,9 +81,6 @@ export async function POST(req: NextRequest) {
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
-    return NextResponse.json(
-      { data: null, error: "LINK_FAILED", details: message },
-      { status: 500 },
-    );
+    return NextResponse.json({ data: null, error: "LINK_FAILED", details: message }, { status: 500 });
   }
 }
