@@ -9,9 +9,7 @@ const REQUEST_HOST = "api.cdp.coinbase.com";
 const REQUEST_PATH = "/platform/v2/evm/faucet";
 const REQUEST_METHOD = "POST";
 
-export type RefillResult =
-  | { ok: true; transactionHash: string }
-  | { ok: false; error: string; code?: string };
+export type RefillResult = { ok: true; transactionHash: string } | { ok: false; error: string; code?: string };
 
 export async function requestFaucetFunds(treasuryAddress: string): Promise<RefillResult> {
   const apiKeyId = process.env.CDP_API_KEY_ID;
