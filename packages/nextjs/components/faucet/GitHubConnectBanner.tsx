@@ -15,8 +15,8 @@ export function GitHubConnectBanner({ onConnect, loading }: Props) {
           <Github className="h-5 w-5 text-amber-700 dark:text-amber-400" />
         </div>
         <div>
-          <p className="font-medium text-zinc-900 dark:text-zinc-100">Connect GitHub to claim</p>
-          <p className="text-sm text-zinc-600 dark:text-zinc-400">
+          <p className="font-medium text-zinc-900 dark:text-base-content">Connect GitHub to claim</p>
+          <p className="text-sm text-zinc-600 dark:text-base-content/80">
             Link your GitHub account to verify identity and unlock claims.
           </p>
         </div>
@@ -25,7 +25,7 @@ export function GitHubConnectBanner({ onConnect, loading }: Props) {
         type="button"
         onClick={onConnect}
         disabled={loading}
-        className="shrink-0 px-4 py-2.5 rounded-lg bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 font-medium text-sm hover:bg-zinc-800 dark:hover:bg-zinc-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        className="shrink-0 px-4 py-2.5 rounded-lg bg-zinc-900 dark:bg-base-300 text-white dark:text-base-content font-medium text-sm hover:bg-zinc-800 dark:hover:bg-base-300/90 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
       >
         {loading ? "Connecting…" : "Connect GitHub"}
       </button>

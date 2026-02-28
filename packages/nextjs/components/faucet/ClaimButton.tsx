@@ -91,7 +91,7 @@ export function ClaimButton({ user, userLoading, nextEligibleAt, claimAmount, on
   if (derivedState === "loading") {
     return (
       <div className="flex flex-col items-center gap-3">
-        <div className="h-12 w-48 rounded-xl bg-zinc-200 dark:bg-zinc-700 animate-pulse" />
+        <div className="h-12 w-48 rounded-xl bg-zinc-200 dark:bg-base-300 animate-pulse" />
       </div>
     );
   }
@@ -176,9 +176,9 @@ export function ClaimButton({ user, userLoading, nextEligibleAt, claimAmount, on
           className={`
             inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-medium text-sm
             transition-colors min-w-[200px]
-            ${isError ? "bg-zinc-200 dark:bg-zinc-700 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-300 dark:hover:bg-zinc-600" : ""}
+            ${isError ? "bg-zinc-200 dark:bg-base-300 text-zinc-900 dark:text-base-content hover:bg-zinc-300 dark:hover:bg-base-300/90" : ""}
             ${derivedState === "ready" ? "bg-blue-600 hover:bg-blue-700 text-white" : ""}
-            ${!isError && derivedState !== "ready" ? "bg-zinc-200 dark:bg-zinc-700 text-zinc-500 dark:text-zinc-400 cursor-not-allowed" : ""}
+            ${!isError && derivedState !== "ready" ? "bg-zinc-200 dark:bg-base-300 text-zinc-500 dark:text-base-content/70 cursor-not-allowed" : ""}
           `}
         >
           {config.icon}
