@@ -94,7 +94,6 @@ export default function FaucetPage() {
     fetchUser();
   }, [fetchUser]);
 
-  // Handle GitHub OAuth callback: hash contains provider_token (Supabase reserves state)
   useEffect(() => {
     if (typeof window === "undefined") return;
     const hash = window.location.hash;
@@ -151,7 +150,6 @@ export default function FaucetPage() {
       style={{ background: "linear-gradient(180deg, var(--color-base-200) 0%, var(--color-base-300) 100%)" }}
     >
       <div className="max-w-2xl mx-auto px-4 py-8 sm:py-12">
-        {/* Header */}
         <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
           <div className="flex items-center gap-3">
             <div className="p-2.5 rounded-xl bg-base-100 border border-base-300">
@@ -176,7 +174,6 @@ export default function FaucetPage() {
           canClaim={Boolean(canClaim)}
         />
 
-        {/* GitHub OAuth callback: sign to complete linking (Ethereum sign-in); uses currently connected wallet */}
         {pendingLink && address && (
           <div className="mb-6">
             <GitHubLinkSignCard
@@ -188,27 +185,23 @@ export default function FaucetPage() {
           </div>
         )}
 
-        {/* GitHub banner: show when wallet connected but GitHub not linked and no pending callback */}
         {showGitHubBanner && !pendingLink && (
           <div className="mb-6">
             <GitHubConnectBanner onConnect={handleGitHubConnect} loading={false} />
           </div>
         )}
 
-        {/* Cards grid */}
         <div className="grid gap-6 sm:grid-cols-2">
           <FaucetCard />
           <StatusCard user={user} loading={userLoading && !user} />
         </div>
 
-        {/* Score (after GitHub linked) */}
         {(user?.github_id || scoreBreakdown) && (
           <div className="mt-6">
             <AntiSybilScore breakdown={scoreBreakdown} loading={user?.github_id ? scoreLoading : false} />
           </div>
         )}
 
-        {/* Claim section */}
         <div className="mt-8 pt-8 border-t border-base-300">
           <div className="flex flex-col items-center justify-center gap-2">
             <p className="text-sm text-base-content/80 text-center max-w-md">

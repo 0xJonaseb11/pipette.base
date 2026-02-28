@@ -44,7 +44,6 @@ export interface SybilScoreBreakdown {
   walletAge: number;
 }
 
-/** GitHub profile fields we derive and store (never store the OAuth token). */
 export interface GitHubProfile {
   github_id: string;
   login: string;

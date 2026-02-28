@@ -3,11 +3,6 @@ import type { GitHubProfile } from "~~/types";
 const GITHUB_API_USER = "https://api.github.com/user";
 const GITHUB_API_EMAILS = "https://api.github.com/user/emails";
 
-/**
- * Fetches GitHub profile using the OAuth access token.
- * Uses /user/emails (user:email scope) for verified email when available.
- * Only use the returned profile fields; never store the token in the database.
- */
 export async function fetchGitHubProfile(accessToken: string): Promise<GitHubProfile> {
   const headers = {
     Authorization: `Bearer ${accessToken}`,
@@ -34,7 +29,6 @@ export async function fetchGitHubProfile(accessToken: string): Promise<GitHubPro
   const createdAt = data.created_at ? new Date(data.created_at) : new Date();
   const accountAgeDays = Math.max(0, Math.floor((Date.now() - createdAt.getTime()) / (24 * 60 * 60 * 1000)));
 
-  // Verified email: prefer /user/emails (needs user:email scope). Fall back to /user email if hidden.
   let hasVerifiedEmail = Boolean(data.email);
   try {
     const emailsRes = await fetch(GITHUB_API_EMAILS, { headers });
@@ -43,7 +37,6 @@ export async function fetchGitHubProfile(accessToken: string): Promise<GitHubPro
       hasVerifiedEmail = emails.some(e => e.verified);
     }
   } catch {
-    // Scope not granted or API error: keep fallback
   }
 
   return {

@@ -11,10 +11,6 @@ type Props = {
   onCancel: () => void;
 };
 
-/**
- * Shown after GitHub OAuth redirect when hash contains provider_token and state.
- * User signs a message (Ethereum sign-in) to prove wallet ownership; we then link GitHub to that wallet.
- */
 export function GitHubLinkSignCard({ walletAddress, githubAccessToken, onSuccess, onCancel }: Props) {
   const { signMessageAsync } = useSignMessage();
   const [loading, setLoading] = useState(false);

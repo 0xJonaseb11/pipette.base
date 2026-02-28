@@ -1,10 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requestFaucetFunds } from "~~/services/refillService";
 
-/**
- * Cron endpoint for treasury refill. Invoked by Vercel Cron every 24 hours.
- * Secured by CRON_SECRET: Vercel sends Authorization: Bearer <CRON_SECRET>.
- */
 export async function GET(req: NextRequest) {
   const authHeader = req.headers.get("authorization");
   const secret = process.env.CRON_SECRET;
