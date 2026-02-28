@@ -25,6 +25,18 @@ export const Footer = () => {
             <a href={BASE_SEPOLIA_EXPLORER} target="_blank" rel="noreferrer" className="link">
               Base Sepolia Explorer
             </a>
+            <span className="text-base-content/40" aria-hidden>
+              ·
+            </span>
+            <Link href="/policy" className="link">
+              Policy
+            </Link>
+            <span className="text-base-content/40" aria-hidden>
+              ·
+            </span>
+            <Link href="/privacy" className="link">
+              Privacy
+            </Link>
             {STATUS_PAGE_URL && (
               <>
                 <span className="text-base-content/40" aria-hidden>
