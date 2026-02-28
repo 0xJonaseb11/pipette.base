@@ -103,7 +103,9 @@ export const Faucet = () => {
                 <Address
                   address={faucetAddress}
                   onlyEnsOrAddress
-                  blockExplorerAddressLink={getBlockExplorerAddressLink(targetNetwork, faucetAddress)}
+                  blockExplorerAddressLink={
+                    faucetAddress ? getBlockExplorerAddressLink(targetNetwork, faucetAddress) : undefined
+                  }
                 />
               </div>
               <div>
