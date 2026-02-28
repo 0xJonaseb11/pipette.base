@@ -15,10 +15,7 @@ export async function GET(req: NextRequest) {
 
   const treasuryAddress = process.env.TREASURY_ADDRESS;
   if (!treasuryAddress) {
-    return NextResponse.json(
-      { error: "TREASURY_ADDRESS not configured" },
-      { status: 500 },
-    );
+    return NextResponse.json({ error: "TREASURY_ADDRESS not configured" }, { status: 500 });
   }
 
   const result = await requestFaucetFunds(treasuryAddress);
@@ -30,10 +27,6 @@ export async function GET(req: NextRequest) {
     });
   }
 
-  const status =
-    result.code === "faucet_limit_exceeded" ? 429 : result.code === "MISSING_CREDENTIALS" ? 500 : 502;
-  return NextResponse.json(
-    { ok: false, error: result.error, code: result.code },
-    { status },
-  );
+  const status = result.code === "faucet_limit_exceeded" ? 429 : result.code === "MISSING_CREDENTIALS" ? 500 : 502;
+  return NextResponse.json({ ok: false, error: result.error, code: result.code }, { status });
 }

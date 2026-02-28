@@ -1,4 +1,5 @@
 #!/usr/bin/env npx tsx
+
 /**
  * Treasury refill script – requests Base Sepolia ETH from CDP Faucet to TREASURY_ADDRESS.
  * Safe to run via cron every 24 hours (CDP rate limit: 0.1 ETH per 24h per address).
@@ -9,7 +10,6 @@
  * Usage:
  *   cd packages/nextjs && npx tsx scripts/refillTreasury.ts
  */
-
 import { requestFaucetFunds } from "../services/refillService";
 
 async function main() {
