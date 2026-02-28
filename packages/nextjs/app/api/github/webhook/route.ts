@@ -1,5 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 
+export async function GET() {
+    return NextResponse.json(
+      { status: "Webhook endpoint active" },
+      { status: 200 }
+    );
+  }
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.text();
