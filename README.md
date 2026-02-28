@@ -60,7 +60,7 @@ Fund the `TREASURY_PRIVATE_KEY` wallet with Base Sepolia ETH.
 | Command | Description |
 | ------- | ----------- |
 | `yarn start` | Dev server |
-| `yarn next:build` | Production build |
+| `yarn next:build` | Build |
 | `yarn next:lint` | Lint |
 | `yarn format` | Format |
 
