@@ -211,8 +211,10 @@ export function ClaimButton({
           {errorCode === "BLOCKED" && "Your account is restricted."}
           {errorCode === "COOLDOWN" && "Wait until your next eligible time."}
           {errorCode === "RATE_LIMIT" && "Too many requests. Try again in a minute."}
+          {errorCode === "TREASURY_NOT_CONFIGURED" &&
+            "Treasury is not configured. The deploy needs TREASURY_PRIVATE_KEY (and TREASURY_ADDRESS) set."}
           {errorCode === "CLAIM_FAILED" && "Claim failed. Please try again."}
-          {!["GITHUB_NOT_LINKED", "PENDING_REVIEW", "BLOCKED", "COOLDOWN", "RATE_LIMIT", "CLAIM_FAILED"].includes(
+          {!["GITHUB_NOT_LINKED", "PENDING_REVIEW", "BLOCKED", "COOLDOWN", "RATE_LIMIT", "TREASURY_NOT_CONFIGURED", "CLAIM_FAILED"].includes(
             errorCode,
           ) && `Error: ${errorCode}`}
         </p>

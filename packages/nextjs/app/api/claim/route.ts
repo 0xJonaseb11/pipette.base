@@ -28,6 +28,13 @@ function isRateLimited(ip: string): boolean {
 
 export async function POST(req: NextRequest) {
   try {
+    if (!process.env.TREASURY_PRIVATE_KEY) {
+      return NextResponse.json(
+        { data: null, error: "TREASURY_NOT_CONFIGURED" },
+        { status: 503 },
+      );
+    }
+
     const ip = getClientIp(req);
     if (isRateLimited(ip)) {
       return NextResponse.json({ data: null, error: "RATE_LIMIT" }, { status: 429 });
