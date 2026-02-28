@@ -108,7 +108,7 @@ export default function FaucetPage() {
     else setScoreBreakdown(null);
   }, [user?.github_id, fetchScore]);
 
-  const showGitHubBanner = Boolean(isConnected && address && user && !user.github_id);
+  const showGitHubBanner = Boolean(isConnected && address && !user?.github_id);
   const nextEligibleAt = user ? getNextEligibleAt(user.last_claim_at) : null;
   const claimAmount = user?.status === "active" ? getClaimAmountEth(user.sybil_score) : null;
   const hasCooldown = Boolean(user?.last_claim_at && nextEligibleAt && new Date(nextEligibleAt) > new Date());
@@ -217,6 +217,7 @@ export default function FaucetPage() {
               nextEligibleAt={nextEligibleAt}
               claimAmount={claimAmount}
               onClaimSuccess={handleClaimSuccess}
+              onConnectGitHub={handleGitHubConnect}
             />
           </div>
         </div>

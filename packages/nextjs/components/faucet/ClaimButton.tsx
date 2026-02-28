@@ -24,9 +24,17 @@ type Props = {
   nextEligibleAt?: string | null;
   claimAmount?: string | null;
   onClaimSuccess?: () => void;
+  onConnectGitHub?: () => void;
 };
 
-export function ClaimButton({ user, userLoading, nextEligibleAt, claimAmount, onClaimSuccess }: Props) {
+export function ClaimButton({
+  user,
+  userLoading,
+  nextEligibleAt,
+  claimAmount,
+  onClaimSuccess,
+  onConnectGitHub,
+}: Props) {
   const { address, isConnected } = useAccount();
   const { signMessageAsync } = useSignMessage();
   const [state, setState] = useState<ClaimState>("idle");
@@ -108,7 +116,7 @@ export function ClaimButton({ user, userLoading, nextEligibleAt, claimAmount, on
     github_not_linked: {
       label: "Connect GitHub First",
       icon: <Github className="h-4 w-4" />,
-      disabled: true,
+      disabled: !onConnectGitHub,
     },
     pending: {
       label: "Awaiting Approval",
@@ -171,14 +179,25 @@ export function ClaimButton({ user, userLoading, nextEligibleAt, claimAmount, on
       ) : (
         <button
           type="button"
-          onClick={derivedState === "ready" || derivedState === "error" ? handleClaim : undefined}
+          onClick={
+            derivedState === "ready" || derivedState === "error"
+              ? handleClaim
+              : derivedState === "github_not_linked" && onConnectGitHub
+                ? onConnectGitHub
+                : undefined
+          }
           disabled={config.disabled}
           className={`
             inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-medium text-sm
             transition-colors min-w-[200px]
             ${isError ? "bg-zinc-200 dark:bg-base-300 text-zinc-900 dark:text-base-content hover:bg-zinc-300 dark:hover:bg-base-300/90" : ""}
             ${derivedState === "ready" ? "bg-blue-600 hover:bg-blue-700 text-white" : ""}
-            ${!isError && derivedState !== "ready" ? "bg-zinc-200 dark:bg-base-300 text-zinc-500 dark:text-base-content/70 cursor-not-allowed" : ""}
+            ${!isError && derivedState !== "ready" && derivedState !== "github_not_linked"
+              ? "bg-zinc-200 dark:bg-base-300 text-zinc-500 dark:text-base-content/70 cursor-not-allowed"
+              : ""}
+            ${derivedState === "github_not_linked" && onConnectGitHub
+              ? "bg-blue-600 hover:bg-blue-700 text-white cursor-pointer"
+              : ""}
           `}
         >
           {config.icon}
