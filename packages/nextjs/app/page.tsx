@@ -39,12 +39,12 @@ const Home: NextPage = () => {
 
           {/* Main headline with accent on key word */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-base-content mb-5 leading-[1.1]">
-            Testnet ETH for <span className="text-primary">African Web3 builders</span>
+            Testnet ETH for <span className="text-primary">African web3 builders</span>
           </h1>
 
           {/* Single descriptive line */}
           <p className="text-lg text-base-content/80 max-w-xl mx-auto leading-relaxed mb-10">
-            Power newbie African Web3 with Base Sepolia tokens. Connect wallet, link GitHub, claim — no mainnet gas required.
+            Get Base Sepolia testnet ETH for African web3 builders. Connect your wallet, link GitHub, and claim. No mainnet gas required.
           </p>
 
           {/* Primary CTA: one clear action */}

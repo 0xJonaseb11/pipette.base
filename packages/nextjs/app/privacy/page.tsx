@@ -1,6 +1,6 @@
 export const metadata = {
   title: "Privacy Policy",
-  description: "Pipette privacy policy — how we handle your data",
+  description: "Pipette privacy policy. How we handle your data.",
 };
 
 export default function PrivacyPage() {
@@ -22,16 +22,16 @@ export default function PrivacyPage() {
           <h2 className="text-lg font-semibold text-base-content mt-8 mb-3">2. Data We Collect</h2>
           <ul className="list-disc pl-6 space-y-2">
             <li>
-              <strong>Wallet address</strong> — When you connect your wallet and claim testnet ETH, we store your
+              <strong>Wallet address.</strong> When you connect your wallet and claim testnet ETH, we store your
               wallet address to enforce cooldowns and prevent abuse.
             </li>
             <li>
-              <strong>GitHub profile data</strong> — If you link GitHub, we receive your public GitHub ID, username,
+              <strong>GitHub profile data.</strong> If you link GitHub, we receive your public GitHub ID, username,
               account age, public repos count, and followers. We use this for anti-sybil scoring only. We do not store
               OAuth tokens.
             </li>
             <li>
-              <strong>Claim history</strong> — We record when you claim, amounts, and transaction hashes for
+              <strong>Claim history.</strong> We record when you claim, amounts, and transaction hashes for
               analytics and anti-abuse.
             </li>
           </ul>
@@ -61,7 +61,7 @@ export default function PrivacyPage() {
           <h2 className="text-lg font-semibold text-base-content mt-8 mb-3">5. Third Parties</h2>
           <p>
             We use Supabase (data storage), Coinbase CDP (faucet refill), and Vercel (hosting). Each has its own
-            privacy policy. Your wallet interactions use standard Ethereum signing — we do not have access to your
+            privacy policy. Your wallet interactions use standard Ethereum signing. We do not have access to your
             private keys.
           </p>
         </section>

@@ -1,6 +1,6 @@
 import { type Address, createPublicClient, http } from "viem";
 import { parseEther } from "viem";
-import { mainnet } from "viem/chains";
+import { base, mainnet } from "viem/chains";
 import type { GitHubProfile } from "~~/types";
 import type { SybilScoreBreakdown } from "~~/types";
 
@@ -19,14 +19,45 @@ const MAINNET_TX_POINTS = 15;
 const WALLET_AGE_POINTS = 15;
 
 const DAYS_PER_POINT_ACCOUNT_AGE = 30;
+const DAYS_PER_POINT_WALLET_AGE = 25; // ~1 year = 15 pts
 const POINTS_PER_REPO = 2;
 const POINTS_PER_FOLLOWER = 1;
 
-/** Mainnet client for on-chain checks only. */
+/** RPC clients for on-chain checks (Ethereum + Base mainnet for Base ecosystem users). */
 const mainnetClient = createPublicClient({
   chain: mainnet,
   transport: http(),
 });
+const baseMainnetClient = createPublicClient({
+  chain: base,
+  transport: http(),
+});
+
+const BASESCAN_API = "https://api.basescan.org/api";
+const ETHERSCAN_API = "https://api.etherscan.org/api";
+
+/** Fetch first tx timestamp (unix seconds) from block explorer. Returns null if none or on error. */
+async function getFirstTxTimestamp(address: string, api: string, apiKey?: string): Promise<number | null> {
+  try {
+    const params = new URLSearchParams({
+      module: "account",
+      action: "txlist",
+      address,
+      startblock: "0",
+      endblock: "99999999",
+      page: "1",
+      offset: "1",
+      sort: "asc",
+    });
+    if (apiKey) params.set("apikey", apiKey);
+    const res = await fetch(`${api}?${params}`);
+    const data = (await res.json()) as { status: string; result?: Array<{ timeStamp: string }> };
+    const first = Array.isArray(data.result) && data.result[0];
+    return first ? parseInt(first.timeStamp, 10) : null;
+  } catch {
+    return null;
+  }
+}
 
 export function getScoreThresholds(): typeof SCORE_THRESHOLDS {
   return SCORE_THRESHOLDS;
@@ -86,19 +117,41 @@ export async function computeSybilScore(
   breakdown.verifiedEmail = profile.has_email ? VERIFIED_EMAIL_POINTS : 0;
 
   if (walletAddress) {
+    const ethKey = process.env.ETHERSCAN_API_KEY;
+    const baseKey = process.env.BASESCAN_API_KEY;
+
+    // Tx count from Ethereum and Base mainnet (many Base Sepolia users have Base, not ETH, activity)
+    let txCountEth = 0;
+    let txCountBase = 0;
     try {
-      const txCount = await mainnetClient.getTransactionCount({ address: walletAddress });
-
-      // Prior mainnet txs: up to 15 points (1 per tx, capped)
-      breakdown.onchainHistory = Math.min(MAINNET_TX_POINTS, txCount);
-
-      // Wallet age: use mainnet tx count as proxy for "has been around" (no historical index).
-      // 1 point per 2 txs, capped at 15 — new devs with 0 mainnet txs get 0, which is fine.
-      if (txCount > 0) {
-        breakdown.walletAge = Math.min(WALLET_AGE_POINTS, Math.floor(txCount / 2));
-      }
+      const [eth, base] = await Promise.all([
+        mainnetClient.getTransactionCount({ address: walletAddress }).catch(() => 0),
+        baseMainnetClient.getTransactionCount({ address: walletAddress }).catch(() => 0),
+      ]);
+      txCountEth = eth;
+      txCountBase = base;
     } catch {
-      // RPC or network failure: leave onchain/walletAge at 0 so we don't block beginners
+      // RPC failure: keep 0
+    }
+
+    // On-chain history: max of both chains, 1 pt per tx, capped at 15
+    const totalTxCount = Math.max(txCountEth, txCountBase);
+    breakdown.onchainHistory = Math.min(MAINNET_TX_POINTS, totalTxCount);
+
+    // Wallet age: first tx timestamp from block explorers (Ethereum + Base), then days since creation
+    const [firstEth, firstBase] = await Promise.all([
+      getFirstTxTimestamp(walletAddress, ETHERSCAN_API, ethKey),
+      getFirstTxTimestamp(walletAddress, BASESCAN_API, baseKey),
+    ]);
+    const firstTxTs = [firstEth, firstBase].filter((t): t is number => t != null);
+    const earliestTs = firstTxTs.length ? Math.min(...firstTxTs) : null;
+
+    if (earliestTs) {
+      const walletAgeDays = Math.max(0, Math.floor((Date.now() / 1000 - earliestTs) / (24 * 60 * 60)));
+      breakdown.walletAge = Math.min(WALLET_AGE_POINTS, Math.floor(walletAgeDays / DAYS_PER_POINT_WALLET_AGE));
+    } else if (totalTxCount > 0) {
+      // Fallback: use tx count as proxy when block explorer fails
+      breakdown.walletAge = Math.min(WALLET_AGE_POINTS, Math.floor(totalTxCount / 2));
     }
   }
 
