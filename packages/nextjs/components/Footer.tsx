@@ -68,7 +68,7 @@ export const Footer = () => {
             ·
           </span>
           <span className="text-base-content/80">
-            Built with 💙 by {" "} 
+            Built with 💙 by{" "}
             <a href={BUILDER_GITHUB_URL} target="_blank" rel="noreferrer" className="link">
               Jonas Sebera
             </a>
