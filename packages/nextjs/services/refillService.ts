@@ -1,9 +1,3 @@
-/**
- * Treasury refill via Coinbase Developer Platform (CDP) Faucet API.
- * Requests Base Sepolia ETH to be sent to the treasury address.
- * Rate limits: 0.0001 ETH per request, 0.1 ETH per 24h rolling window per address.
- */
-
 const CDP_FAUCET_URL = "https://api.cdp.coinbase.com/platform/v2/evm/faucet";
 const REQUEST_HOST = "api.cdp.coinbase.com";
 const REQUEST_PATH = "/platform/v2/evm/faucet";

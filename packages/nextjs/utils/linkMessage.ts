@@ -1,9 +1,5 @@
-/**
- * Message format for "link GitHub to wallet" – same structure as claim (nonce + timestamp)
- * so wallet signing is consistent across the app (Ethereum sign-in).
- */
 export const LINK_MESSAGE_PREFIX = "Pipette link GitHub to wallet\nNonce: ";
-const MESSAGE_MAX_AGE_MS = 10 * 60 * 1000; // 10 minutes (user may be slow after OAuth redirect)
+const MESSAGE_MAX_AGE_MS = 10 * 60 * 1000;
 
 export function isLinkMessageValid(message: string): { valid: boolean; timestamp?: number } {
   const prefix = LINK_MESSAGE_PREFIX;

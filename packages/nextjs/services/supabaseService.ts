@@ -52,7 +52,6 @@ export async function getUserByWallet(address: string): Promise<User | null> {
   const { data, error } = await supabase.from("users").select("*").eq("wallet_address", walletAddress).maybeSingle();
 
   if (error) {
-    // PGRST116 is \"No rows found for single()\" – treat as null user.
     if ((error as { code?: string }).code === "PGRST116") {
       return null;
     }

@@ -11,7 +11,6 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.text();
 
-    // Optional: log for debugging
     console.log("GitHub Marketplace webhook received");
     console.log(body);
 

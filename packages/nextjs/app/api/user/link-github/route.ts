@@ -11,11 +11,6 @@ import {
 } from "~~/services/supabaseService";
 import { isLinkMessageValid } from "~~/utils/linkMessage";
 
-/**
- * Link GitHub account to wallet. Requires Ethereum signature to prove wallet ownership.
- * Body: { walletAddress, signature, message, githubAccessToken }
- * Message must be from GET /api/nonce?type=link (same Ethereum sign-in pattern as claim).
- */
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();

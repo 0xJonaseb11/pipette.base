@@ -1,5 +1,5 @@
 export const CLAIM_MESSAGE_PREFIX = "Pipette faucet claim\nNonce: ";
-const MESSAGE_MAX_AGE_MS = 5 * 60 * 1000; // 5 minutes
+const MESSAGE_MAX_AGE_MS = 5 * 60 * 1000;
 
 export function isClaimMessageValid(message: string): {
   valid: boolean;
