@@ -30,7 +30,7 @@
   --color-warning: #ffcf72;
   --color-error: #ff8863;
 
-  --radius-field: 9999rem;
+  --radius-field: 0.5rem;
   --radius-box: 1rem;
   --tt-tailw: 6px;
 }
@@ -80,6 +80,27 @@
 
 .btn.btn-ghost {
   @apply shadow-none;
+}
+
+/* Inputs and textareas: subtle radius, theme-aligned focus */
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary);
+}
+
+.input:focus-visible,
+.textarea:focus-visible {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary);
+}
+
+/* Buttons: theme-aligned focus ring */
+.btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--color-base-100), 0 0 0 4px var(--color-primary);
 }
 
 .link {
