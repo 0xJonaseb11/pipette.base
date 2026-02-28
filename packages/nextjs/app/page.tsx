@@ -44,7 +44,8 @@ const Home: NextPage = () => {
 
           {/* Single descriptive line */}
           <p className="text-lg text-base-content/80 max-w-xl mx-auto leading-relaxed mb-10">
-            Get Base Sepolia testnet ETH for African web3 builders. Connect your wallet, link GitHub, and claim. No mainnet gas required.
+            Get Base Sepolia testnet ETH for African web3 builders. Connect your wallet, link GitHub, and claim. No
+            mainnet gas required.
           </p>
 
           {/* Primary CTA: one clear action */}

@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { DonateWallet } from "~~/components/DonateWallet";
 import { SwitchTheme } from "~~/components/SwitchTheme";
 
 const BASE_SEPOLIA_EXPLORER = "https://sepolia.basescan.org";
@@ -13,7 +14,7 @@ export const Footer = () => {
           <SwitchTheme className="pointer-events-auto" />
         </div>
       </div>
-      <div className="w-full">
+      <div className="w-full flex flex-col items-center gap-4">
         <ul className="menu menu-horizontal w-full">
           <div className="flex justify-center items-center gap-2 text-sm w-full flex-wrap">
             <Link href="/faucet" className="link">
@@ -49,6 +50,7 @@ export const Footer = () => {
             )}
           </div>
         </ul>
+        <DonateWallet />
       </div>
     </div>
   );

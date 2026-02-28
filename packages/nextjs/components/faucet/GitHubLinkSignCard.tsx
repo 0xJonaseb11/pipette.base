@@ -57,10 +57,9 @@ export function GitHubLinkSignCard({ walletAddress, githubAccessToken, onSuccess
       onSuccess();
     } catch (e) {
       const msg = e instanceof Error ? e.message : "Linking failed";
-      const friendly =
-        /reject|denied|cancel/i.test(msg)
-          ? "You rejected the signature. Click again and approve in your wallet."
-          : msg;
+      const friendly = /reject|denied|cancel/i.test(msg)
+        ? "You rejected the signature. Click again and approve in your wallet."
+        : msg;
       setError(friendly);
     } finally {
       setLoading(false);
