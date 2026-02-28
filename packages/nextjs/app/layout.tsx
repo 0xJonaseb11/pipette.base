@@ -8,12 +8,13 @@ import { getMetadata } from "~~/utils/scaffold-eth/getMetadata";
 
 export const metadata = getMetadata({
   title: "Pipette",
-  description: "Base Sepolia developer faucet. Get testnet ETH for building.",
+  description:
+    "Power newbie African Web3 with Base testnet tokens. Get Base Sepolia ETH for building — connect wallet, link GitHub, claim. No mainnet gas required.",
 });
 
 const ScaffoldEthApp = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html suppressHydrationWarning className={``}>
+    <html suppressHydrationWarning lang="en">
       <body>
         <ThemeProvider enableSystem>
           <ScaffoldEthAppWithProviders>{children}</ScaffoldEthAppWithProviders>

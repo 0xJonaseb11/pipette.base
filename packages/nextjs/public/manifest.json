@@ -1,5 +1,18 @@
 {
-  "name": "Scaffold-ETH 2 DApp",
-  "description": "A DApp built with Scaffold-ETH",
-  "iconPath": "logo.svg"
+  "name": "Pipette",
+  "short_name": "Pipette",
+  "description": "Power newbie African Web3 with Base testnet tokens. Get Base Sepolia ETH for building.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f0f4fa",
+  "theme_color": "#93bbfb",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["finance", "utilities"]
 }

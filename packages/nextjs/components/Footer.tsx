@@ -3,6 +3,7 @@ import Link from "next/link";
 import { SwitchTheme } from "~~/components/SwitchTheme";
 
 const BASE_SEPOLIA_EXPLORER = "https://sepolia.basescan.org";
+const STATUS_PAGE_URL = process.env.NEXT_PUBLIC_STATUS_PAGE_URL;
 
 export const Footer = () => {
   return (
@@ -24,6 +25,16 @@ export const Footer = () => {
             <a href={BASE_SEPOLIA_EXPLORER} target="_blank" rel="noreferrer" className="link">
               Base Sepolia Explorer
             </a>
+            {STATUS_PAGE_URL && (
+              <>
+                <span className="text-base-content/40" aria-hidden>
+                  ·
+                </span>
+                <Link href="/status" className="link">
+                  Status
+                </Link>
+              </>
+            )}
           </div>
         </ul>
       </div>
