@@ -94,7 +94,7 @@ export function GitHubLinkSignCard({ walletAddress, githubAccessToken, onSuccess
           Cancel
         </button>
       </div>
-      {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
+      {error && <p className="text-sm text-red-600">{error}</p>}
     </div>
   );
 }

@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
 import { DonateWallet } from "~~/components/DonateWallet";
-import { SwitchTheme } from "~~/components/SwitchTheme";
 
 const BASE_SEPOLIA_EXPLORER = "https://sepolia.basescan.org";
 const STATUS_PAGE_URL = process.env.NEXT_PUBLIC_STATUS_PAGE_URL;
@@ -9,11 +8,6 @@ const STATUS_PAGE_URL = process.env.NEXT_PUBLIC_STATUS_PAGE_URL;
 export const Footer = () => {
   return (
     <div className="min-h-0 py-5 px-1 mb-11 lg:mb-0">
-      <div>
-        <div className="fixed flex justify-end items-center w-full z-10 p-4 bottom-0 left-0 pointer-events-none">
-          <SwitchTheme className="pointer-events-auto" />
-        </div>
-      </div>
       <div className="w-full flex flex-col items-center gap-4">
         <ul className="menu menu-horizontal w-full">
           <div className="flex justify-center items-center gap-2 text-sm w-full flex-wrap">
