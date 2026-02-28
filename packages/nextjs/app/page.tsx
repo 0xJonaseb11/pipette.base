@@ -3,11 +3,12 @@
 import Link from "next/link";
 import { Address } from "@scaffold-ui/components";
 import type { NextPage } from "next";
-import { hardhat } from "viem/chains";
+import { baseSepolia } from "viem/chains";
 import { useAccount } from "wagmi";
-import { BugAntIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { ArrowRight, Droplets } from "lucide-react";
 import { useTargetNetwork } from "~~/hooks/scaffold-eth";
+
+const BASE_SEPOLIA_EXPLORER = "https://sepolia.basescan.org";
 
 const Home: NextPage = () => {
   const { address: connectedAddress } = useAccount();
@@ -67,33 +68,13 @@ const Home: NextPage = () => {
               <Address
                 address={connectedAddress}
                 chain={targetNetwork}
-                blockExplorerAddressLink={
-                  targetNetwork.id === hardhat.id
-                    ? `/blockexplorer/address/${connectedAddress}`
-                    : undefined
-                }
+                blockExplorerAddressLink={`${BASE_SEPOLIA_EXPLORER}/address/${connectedAddress}`}
               />
             </div>
           )}
         </div>
       </section>
 
-      {/* Secondary links: minimal strip so Debug / Explorer stay available */}
-      <section className="w-full px-5 py-8 bg-base-300/50">
-        <div className="max-w-2xl mx-auto flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-base-content/70">
-          <Link href="/debug" className="inline-flex items-center gap-1.5 hover:text-primary transition-colors">
-            <BugAntIcon className="h-4 w-4" />
-            Debug Contracts
-          </Link>
-          <span className="text-base-content/30" aria-hidden>
-            ·
-          </span>
-          <Link href="/blockexplorer" className="inline-flex items-center gap-1.5 hover:text-primary transition-colors">
-            <MagnifyingGlassIcon className="h-4 w-4" />
-            Block Explorer
-          </Link>
-        </div>
-      </section>
     </>
   );
 };
