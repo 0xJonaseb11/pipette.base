@@ -43,12 +43,25 @@ export function GitHubLinkSignCard({ walletAddress, githubAccessToken, onSuccess
       const json = await res.json();
 
       if (json.error) {
-        setError(json.error === "INVALID_SIGNATURE" ? "Signature failed. Please try again." : json.error);
+        const msg =
+          json.error === "INVALID_SIGNATURE"
+            ? "Signature failed. Try again and approve the message in your wallet."
+            : json.error === "LINK_FAILED"
+              ? "Linking failed. If you rejected the signature, try again and approve it. Otherwise wait a moment and retry."
+              : json.error === "INVALID_GITHUB_TOKEN"
+                ? "GitHub session expired. Please reconnect GitHub."
+                : json.error;
+        setError(msg);
         return;
       }
       onSuccess();
     } catch (e) {
-      setError(e instanceof Error ? e.message : "Linking failed");
+      const msg = e instanceof Error ? e.message : "Linking failed";
+      const friendly =
+        /reject|denied|cancel/i.test(msg)
+          ? "You rejected the signature. Click again and approve in your wallet."
+          : msg;
+      setError(friendly);
     } finally {
       setLoading(false);
     }

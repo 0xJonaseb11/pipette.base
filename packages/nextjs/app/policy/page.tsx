@@ -1,6 +1,6 @@
 export const metadata = {
   title: "Terms & Policy",
-  description: "Pipette terms of use and policy — testnet distribution in compliance with Base",
+  description: "Pipette terms of use and policy. Testnet distribution in compliance with Base.",
 };
 
 export default function PolicyPage() {
@@ -19,24 +19,24 @@ export default function PolicyPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-base-content mt-8 mb-3">2. No Abuse — Compliant Accumulation</h2>
+          <h2 className="text-lg font-semibold text-base-content mt-8 mb-3">2. No Abuse: Compliant Accumulation</h2>
           <p>
             We take the integrity of Base testnet resources seriously. Pipette does not abuse faucet systems or
             violate Base&apos;s policies.
           </p>
           <ul className="list-disc pl-6 space-y-2 mt-2">
             <li>
-              <strong>Testnet accumulation</strong> — We obtain Base Sepolia ETH exclusively through Coinbase
+              <strong>Testnet accumulation.</strong> We obtain Base Sepolia ETH exclusively through Coinbase
               Developer Platform (CDP) faucet, which is intended for developer use. Our treasury is refilled
               automatically within CDP&apos;s rate limits and terms.
             </li>
             <li>
-              <strong>Distribution</strong> — We distribute to developers who connect a wallet, link GitHub, and
+              <strong>Distribution.</strong> We distribute to developers who connect a wallet, link GitHub, and
               pass an anti-sybil check. Claims are limited to one per wallet every 24 hours, with tiered amounts
               based on developer reputation.
             </li>
             <li>
-              <strong>No hoarding or resale</strong> — Testnet ETH is for building. We do not accumulate beyond
+              <strong>No hoarding or resale.</strong> Testnet ETH is for building. We do not accumulate beyond
               what is needed to serve users, nor do we sell or monetize testnet tokens.
             </li>
           </ul>
@@ -56,7 +56,7 @@ export default function PolicyPage() {
         </section>
 
         <section>
-          <h2 className="text-lg font-semibold text-base-content mt-8 mb-3">4. Testnet Only — No Value</h2>
+          <h2 className="text-lg font-semibold text-base-content mt-8 mb-3">4. Testnet Only: No Value</h2>
           <p>
             Base Sepolia ETH has no monetary value. It is for testing only. Do not use it for any purpose other
             than development and experimentation on Base Sepolia.

@@ -144,7 +144,7 @@ export function ClaimButton({
       disabled: true,
     },
     success: {
-      label: "Claimed — View Tx",
+      label: "Claimed, view tx",
       icon: <CheckCircle className="h-4 w-4" />,
       disabled: false,
     },
@@ -213,8 +213,11 @@ export function ClaimButton({
           {errorCode === "RATE_LIMIT" && "Too many requests. Try again in a minute."}
           {errorCode === "TREASURY_NOT_CONFIGURED" &&
             "Treasury is not configured. The deploy needs TREASURY_PRIVATE_KEY (and TREASURY_ADDRESS) set."}
+          {errorCode === "INSUFFICIENT_TREASURY" &&
+            "Treasury is low. Please wait for our next refill or consider donating testnet ETH to help."}
+          {errorCode === "DAILY_CAP_REACHED" && "Daily distribution cap reached. Try again tomorrow."}
           {errorCode === "CLAIM_FAILED" && "Claim failed. Please try again."}
-          {!["GITHUB_NOT_LINKED", "PENDING_REVIEW", "BLOCKED", "COOLDOWN", "RATE_LIMIT", "TREASURY_NOT_CONFIGURED", "CLAIM_FAILED"].includes(
+          {!["GITHUB_NOT_LINKED", "PENDING_REVIEW", "BLOCKED", "COOLDOWN", "RATE_LIMIT", "TREASURY_NOT_CONFIGURED", "INSUFFICIENT_TREASURY", "DAILY_CAP_REACHED", "CLAIM_FAILED"].includes(
             errorCode,
           ) && `Error: ${errorCode}`}
         </p>

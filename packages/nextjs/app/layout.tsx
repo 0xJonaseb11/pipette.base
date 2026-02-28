@@ -9,7 +9,7 @@ import { getMetadata } from "~~/utils/scaffold-eth/getMetadata";
 export const metadata = getMetadata({
   title: "Pipette",
   description:
-    "Power newbie African Web3 with Base testnet tokens. Get Base Sepolia ETH for building — connect wallet, link GitHub, claim. No mainnet gas required.",
+    "Get Base Sepolia testnet ETH for African web3 builders. Connect your wallet, link GitHub, and claim. No mainnet gas required.",
 });
 
 const ScaffoldEthApp = ({ children }: { children: React.ReactNode }) => {

@@ -211,7 +211,7 @@ export default function FaucetPage() {
         <div className="mt-8 pt-8 border-t border-zinc-200 dark:border-base-300">
           <div className="flex flex-col items-center justify-center gap-2">
             <p className="text-sm text-zinc-600 dark:text-base-content/80 text-center max-w-md">
-              Ethereum sign-in: sign a message to prove wallet ownership. No gas, no transaction — secure and free.
+              Ethereum sign-in: sign a message to prove wallet ownership. No gas, no transaction. Secure and free.
             </p>
             <ClaimButton
               user={user ?? null}
