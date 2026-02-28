@@ -33,7 +33,7 @@ export function AntiSybilScore({ breakdown, loading }: Props) {
   }
 
   return (
-    <div className="rounded-xl border border-zinc-200 dark:border-base-300 bg-white dark:bg-base-100 p-6">
+    <div className="rounded-xl border border-zinc-200 dark:border-base-300 bg-base-100 p-6">
       <p className="text-sm font-medium text-zinc-600 dark:text-base-content/80 mb-3">Eligibility score</p>
       <div className="flex flex-col items-center mb-4">
         <div className={`text-3xl font-semibold tabular-nums ${scoreColor(breakdown.total)}`}>{breakdown.total}</div>
