@@ -814,21 +814,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@heroicons/react@npm:^2.2.0":
+"@heroicons/react@npm:^2.2.0, @heroicons/react@npm:~2.2.0":
   version: 2.2.0
   resolution: "@heroicons/react@npm:2.2.0"
   peerDependencies:
     react: ">= 16 || ^19.0.0-rc"
   checksum: ff4dbfa98dacc41f86db82be9102d0c2cd0b8652b428f0b49ffd2580bee8f36fca43937a3d3d5e8f209c7303f5317a32163c018dfa13a3730d79dec43addac93
-  languageName: node
-  linkType: hard
-
-"@heroicons/react@npm:~2.1.5":
-  version: 2.1.5
-  resolution: "@heroicons/react@npm:2.1.5"
-  peerDependencies:
-    react: ">= 16"
-  checksum: 1c793f96443580416eccdb60d72c19f640ce068a95f8568bfe8176c6e8ef1318f3d4d4caa8656b571002fe3a7f2d989d6812429fd6bca4bdff641e4b8998c0cd
   languageName: node
   linkType: hard
 
@@ -2395,6 +2386,27 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rainbow-me/rainbowkit@npm:2.2.10":
+  version: 2.2.10
+  resolution: "@rainbow-me/rainbowkit@npm:2.2.10"
+  dependencies:
+    "@vanilla-extract/css": 1.17.3
+    "@vanilla-extract/dynamic": 2.1.4
+    "@vanilla-extract/sprinkles": 1.6.4
+    clsx: 2.1.1
+    cuer: 0.0.3
+    react-remove-scroll: 2.6.2
+    ua-parser-js: ^1.0.37
+  peerDependencies:
+    "@tanstack/react-query": ">=5.0.0"
+    react: ">=18"
+    react-dom: ">=18"
+    viem: 2.x
+    wagmi: ^2.9.0
+  checksum: 3f8842f93791fe8bc9d3d11f43b4ab0c2ca7fed0978dacd47df082f70c044af609f93d2addd4e77b0c35bbd892f525a14c8415822c08402ee1a2490512034c61
+  languageName: node
+  linkType: hard
+
 "@rainbow-me/rainbowkit@npm:2.2.9":
   version: 2.2.9
   resolution: "@rainbow-me/rainbowkit@npm:2.2.9"
@@ -2735,15 +2747,15 @@ __metadata:
   resolution: "@se-2/nextjs@workspace:packages/nextjs"
   dependencies:
     "@coinbase/cdp-sdk": ^1.44.1
-    "@heroicons/react": ~2.1.5
-    "@rainbow-me/rainbowkit": 2.2.9
+    "@heroicons/react": ~2.2.0
+    "@rainbow-me/rainbowkit": 2.2.10
     "@react-native-async-storage/async-storage": ~2.2.0
     "@scaffold-ui/components": ^0.1.8
     "@scaffold-ui/debug-contracts": ^0.1.7
     "@scaffold-ui/hooks": ^0.1.6
     "@supabase/supabase-js": ^2.98.0
     "@tailwindcss/postcss": 4.0.15
-    "@tanstack/react-query": ~5.59.15
+    "@tanstack/react-query": ~5.90.21
     "@trivago/prettier-plugin-sort-imports": ~4.3.0
     "@types/node": ~18.19.50
     "@types/react": ~19.0.7
@@ -2753,22 +2765,22 @@ __metadata:
     bgipfs: ~0.0.12
     blo: ~1.2.0
     burner-connector: 0.0.20
-    daisyui: 5.0.9
+    daisyui: 5.5.19
     eslint: ~9.23.0
     eslint-config-next: ~15.2.3
     eslint-config-prettier: ~10.1.1
     eslint-plugin-prettier: ~5.2.4
     kubo-rpc-client: ~5.0.2
-    lucide-react: ^0.460.0
+    lucide-react: ^0.575.0
     next: ~15.2.8
-    next-nprogress-bar: ~2.3.13
-    next-themes: ~0.3.0
+    next-nprogress-bar: ~2.4.7
+    next-themes: ~0.4.6
     postcss: ~8.4.45
     prettier: ~3.5.3
-    qrcode.react: ~4.0.1
+    qrcode.react: ~4.2.0
     react: ~19.2.3
     react-dom: ~19.2.3
-    react-hot-toast: ~2.4.0
+    react-hot-toast: ~2.6.0
     resend: ^6.9.3
     tailwindcss: 4.1.3
     tsx: ^4.19.0
@@ -2776,7 +2788,7 @@ __metadata:
     typescript: ~5.8.2
     usehooks-ts: ~3.1.0
     vercel: ~39.1.3
-    viem: 2.39.0
+    viem: 2.46.3
     wagmi: 2.19.5
     zustand: ~5.0.0
   languageName: unknown
@@ -3904,21 +3916,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/query-core@npm:5.59.20":
-  version: 5.59.20
-  resolution: "@tanstack/query-core@npm:5.59.20"
-  checksum: ed836033c7f34a61e7f152da1067ec170e36e861dc591e2a068f73918bcc641bb50ce90dc3b8d12e047f63f70b2842f72e3328d649c841f5c4ea51fdb95e454b
+"@tanstack/query-core@npm:5.90.20":
+  version: 5.90.20
+  resolution: "@tanstack/query-core@npm:5.90.20"
+  checksum: 47a94b3b8f9d68db6622183cbb2c0e7e79f2e71f4664e3b7b51f24fb77800188d919b5f35f522107518a2bcf7b345948e51b24c86e47c62fbaaa9788a9c61b40
   languageName: node
   linkType: hard
 
-"@tanstack/react-query@npm:~5.59.15":
-  version: 5.59.20
-  resolution: "@tanstack/react-query@npm:5.59.20"
+"@tanstack/react-query@npm:~5.90.21":
+  version: 5.90.21
+  resolution: "@tanstack/react-query@npm:5.90.21"
   dependencies:
-    "@tanstack/query-core": 5.59.20
+    "@tanstack/query-core": 5.90.20
   peerDependencies:
     react: ^18 || ^19
-  checksum: 2f4740f13dc9cbbf3c4175ac2e4e2788d2df8643940dfd9cc62c8c3d7c8842b2aeda0f58b99cdd2d525c0c78d759a1adfb3118599ab64bd3ce7ce4f027ee6f6b
+  checksum: 229c693d0c19486042ec8bc4e584d3a434bde41aa33918f38c2aedc045b2f5cb11e02f48d9322b3c3af42d432906542719407a82e382d832bbf2eeb2099eccff
   languageName: node
   linkType: hard
 
@@ -6702,10 +6714,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"daisyui@npm:5.0.9":
-  version: 5.0.9
-  resolution: "daisyui@npm:5.0.9"
-  checksum: edb53c33d814fa9aa67ae898951451792e552c4ea5510e1c4b7a28dd30c5287b120bbfcfcaaf0879782f780de6fc4fc6e3634d228578f894721ad9f5ec9f4158
+"daisyui@npm:5.5.19":
+  version: 5.5.19
+  resolution: "daisyui@npm:5.5.19"
+  checksum: 00b0de053e710aef8b426fb078be69f424e77c156df8b6ba31a38341d0651794173baeb94a0773dd928ec59c193d8a0329b260241b6f1422e97061199edbd9ad
   languageName: node
   linkType: hard
 
@@ -8809,7 +8821,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"goober@npm:^2.1.10, goober@npm:^2.1.16":
+"goober@npm:^2.1.16":
   version: 2.1.18
   resolution: "goober@npm:2.1.18"
   peerDependencies:
@@ -10786,12 +10798,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lucide-react@npm:^0.460.0":
-  version: 0.460.0
-  resolution: "lucide-react@npm:0.460.0"
+"lucide-react@npm:^0.575.0":
+  version: 0.575.0
+  resolution: "lucide-react@npm:0.575.0"
   peerDependencies:
-    react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0-rc
-  checksum: 6106dc16dd7ce7928d6136e81c9e84e87e1b6b0910a0c78777a387c795c0512755e8bf4c602ab8f09518919999a494ed86ba7190863e8e7aec6c82665147ead3
+    react: ^16.5.1 || ^17.0.0 || ^18.0.0 || ^19.0.0
+  checksum: fb9d082c90021e8e2a5f989e96620e39a3f90ffda4f39770e2546ebd5f13aa1e05c76c838b4bc0ca950519c1339f09b761e60763b17c848385c7f373070135c5
   languageName: node
   linkType: hard
 
@@ -11325,22 +11337,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next-nprogress-bar@npm:~2.3.13":
-  version: 2.3.16
-  resolution: "next-nprogress-bar@npm:2.3.16"
+"next-nprogress-bar@npm:~2.4.7":
+  version: 2.4.7
+  resolution: "next-nprogress-bar@npm:2.4.7"
   dependencies:
-    nprogress: ^0.2.0
-  checksum: 9747d0858c0ca9260e26d4950070726fda89aeea7507ce911f1a4d8c733c43a1261bd0ba13f1c922523e5eeba72025f3626e11d0a83ebc4a689ce5ef0a0c01d6
+    nprogress-v2: ^1.0.4
+  checksum: 81a0319840895068040947ff3dc8206e84d1d9cfa774e95928be1da3066fe26dc79beea781c7a6f4ac3082841858b05eea2f607a137c2bc9063597e0de1c7c9f
   languageName: node
   linkType: hard
 
-"next-themes@npm:~0.3.0":
-  version: 0.3.0
-  resolution: "next-themes@npm:0.3.0"
+"next-themes@npm:~0.4.6":
+  version: 0.4.6
+  resolution: "next-themes@npm:0.4.6"
   peerDependencies:
-    react: ^16.8 || ^17 || ^18
-    react-dom: ^16.8 || ^17 || ^18
-  checksum: 4285c4969eac517ad7addd773bcb71e7d14bc6c6e3b24eb97b80a6e06ac03fb6cb345e75dfb448156d14430d06289948eb8cfdeb52402ca7ce786093d01d2878
+    react: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
+    react-dom: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
+  checksum: 295256ee5689629e6578ff4f10f163257172085cac0a250f5f81eae5791fde984a0398be09b959a90c12cf72cf95e82ae11fad6fe13edc4e2d2a6ec2734be0cd
   languageName: node
   linkType: hard
 
@@ -11817,10 +11829,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nprogress@npm:^0.2.0":
-  version: 0.2.0
-  resolution: "nprogress@npm:0.2.0"
-  checksum: 66b7bec5d563ecf2d1c3d2815e6d5eb74ed815eee8563e0afa63d3f185ab1b9cf2ddd97e1ded263b9995c5019d26d600320e849e50f3747984daa033744619dc
+"nprogress-v2@npm:^1.0.4":
+  version: 1.1.10
+  resolution: "nprogress-v2@npm:1.1.10"
+  checksum: a80d645def32a310de168e9b71bdc00f48e30280c36de478780bdca83e29fbb4a38a79394db8f90df1450af3a03173b589c946e2116ea2392874d153d3de8a5a
   languageName: node
   linkType: hard
 
@@ -12915,12 +12927,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"qrcode.react@npm:~4.0.1":
-  version: 4.0.1
-  resolution: "qrcode.react@npm:4.0.1"
+"qrcode.react@npm:~4.2.0":
+  version: 4.2.0
+  resolution: "qrcode.react@npm:4.2.0"
   peerDependencies:
-    react: ^16.8.0 || ^17.0.0 || ^18.0.0
-  checksum: 947728a991a4b7b3e2722c20334d47622f689b482114a2f95a2befe6c985d8205b0a4a0ac68bf35514bdb7c192748a14e0cf7b07df6fcc005032b8db6d342dd9
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
+  checksum: fe7f496bb3696eedf4113390c6feda386e7a5e5d69d12fcc2489c55ecec467f682dc99b0d8085afbeb8ed3962c1f7554b26225cd78b72e78416f9506abbebd5d
   languageName: node
   linkType: hard
 
@@ -13015,7 +13027,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-hot-toast@npm:^2.5.2":
+"react-hot-toast@npm:^2.5.2, react-hot-toast@npm:~2.6.0":
   version: 2.6.0
   resolution: "react-hot-toast@npm:2.6.0"
   dependencies:
@@ -13025,18 +13037,6 @@ __metadata:
     react: ">=16"
     react-dom: ">=16"
   checksum: 244a587bc182f62fc1d9e119120da522395494ad1bdd3cf1365bf6be05dc23c9cd3b6749ae58d77a2e329f530649f05b87fe9cb43fa87eebf32ce90e393b9794
-  languageName: node
-  linkType: hard
-
-"react-hot-toast@npm:~2.4.0":
-  version: 2.4.1
-  resolution: "react-hot-toast@npm:2.4.1"
-  dependencies:
-    goober: ^2.1.10
-  peerDependencies:
-    react: ">=16"
-    react-dom: ">=16"
-  checksum: 3e337816db574782454bf09c63a8aca546bf9c5be3f83d0494d24bdcfd97ca2db64d4c151c4ab0184d2342d7a7226403e6812e70caf03c8b55a07787bb4ad0f2
   languageName: node
   linkType: hard
 
@@ -15420,7 +15420,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"viem@npm:>=2.29.0, viem@npm:^2.1.1, viem@npm:^2.21.26, viem@npm:^2.27.2, viem@npm:^2.31.7":
+"viem@npm:2.46.3, viem@npm:>=2.29.0, viem@npm:^2.1.1, viem@npm:^2.21.26, viem@npm:^2.27.2, viem@npm:^2.31.7":
   version: 2.46.3
   resolution: "viem@npm:2.46.3"
   dependencies:
