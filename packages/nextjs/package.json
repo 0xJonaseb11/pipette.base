@@ -30,9 +30,9 @@
     "blo": "~1.2.0",
     "burner-connector": "0.0.20",
     "daisyui": "5.0.9",
-    "kubo-rpc-client": "~5.0.2",
+    "kubo-rpc-client": "~5.1.0",
     "lucide-react": "^0.460.0",
-    "next": "~15.2.8",
+    "next": "~15.4.10",
     "next-nprogress-bar": "~2.3.13",
     "next-themes": "~0.3.0",
     "qrcode.react": "~4.2.0",
@@ -42,7 +42,7 @@
     "resend": "^6.9.3",
     "usehooks-ts": "~3.1.0",
     "viem": "2.39.0",
-    "wagmi": "2.19.5",
+    "wagmi": "3.0.0",
     "zustand": "~5.0.0"
   },
   "devDependencies": {
