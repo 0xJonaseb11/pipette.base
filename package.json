@@ -50,7 +50,7 @@
   },
   "devDependencies": {
     "husky": "~9.1.6",
-    "lint-staged": "~13.2.2"
+    "lint-staged": "~16.4.0"
   },
   "packageManager": "yarn@3.2.3",
   "engines": {
@@ -58,6 +58,6 @@
   },
   "dependencies": {
     "@coinbase/cdp-sdk": "^1.44.1",
-    "@vercel/analytics": "^1.6.1"
+    "@vercel/analytics": "^2.0.1"
   }
 }
