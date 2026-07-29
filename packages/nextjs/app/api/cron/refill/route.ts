@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { requestFaucetFunds } from "~~/services/refillService";
 
-/** Allow long runs so a daily cron can drain CDP's 24h ETH faucet allowance. */
 export const maxDuration = 300;
 
 export async function GET(req: NextRequest) {
@@ -25,7 +24,6 @@ export async function GET(req: NextRequest) {
       claims: result.claims,
       limitReached: result.limitReached,
       transactionHashes: result.transactionHashes,
-      /** First hash kept for backwards-compatible clients/logs */
       transactionHash: result.transactionHashes[0],
     });
   }

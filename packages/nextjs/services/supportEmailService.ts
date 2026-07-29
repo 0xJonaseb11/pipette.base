@@ -1,6 +1,5 @@
 import { Resend } from "resend";
 
-const DEFAULT_TO = "sebejaz99@gmail.com";
 const DEFAULT_FROM = "Pipette Support <onboarding@resend.dev>";
 
 export async function sendSupportNotification(
@@ -12,7 +11,10 @@ export async function sendSupportNotification(
     return { ok: false, error: "RESEND_API_KEY is not set" };
   }
 
-  const to = process.env.SUPPORT_TO_EMAIL?.trim() || DEFAULT_TO;
+  const to = process.env.SUPPORT_TO_EMAIL?.trim();
+  if (!to) {
+    return { ok: false, error: "SUPPORT_TO_EMAIL is not set" };
+  }
   const from = process.env.SUPPORT_FROM_EMAIL?.trim() || DEFAULT_FROM;
 
   const resend = new Resend(apiKey);

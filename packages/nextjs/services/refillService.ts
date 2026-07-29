@@ -1,6 +1,5 @@
 import { CdpClient } from "@coinbase/cdp-sdk";
 
-/** CDP ETH faucet: 0.0001 ETH per claim, up to 1000 claims / 0.1 ETH per 24h (Base network faucets). */
 const DEFAULT_MAX_CLAIMS_PER_RUN = 1000;
 
 export type RefillResult =
@@ -8,7 +7,6 @@ export type RefillResult =
       ok: true;
       transactionHashes: string[];
       claims: number;
-      /** True when CDP returned faucet_limit_exceeded after at least one success. */
       limitReached: boolean;
     }
   | { ok: false; error: string; code?: string; transactionHashes?: string[]; claims?: number };
@@ -61,14 +59,6 @@ function resolveMaxClaims(): number {
   return Math.min(Math.max(1, Number.isFinite(parsed) ? parsed : DEFAULT_MAX_CLAIMS_PER_RUN), 1000);
 }
 
-/**
- * Request Base Sepolia ETH from the Coinbase Developer Platform faucet into the treasury.
- * Uses the official CDP SDK (`cdp.evm.requestFaucet`) — same source as
- * https://docs.base.org/base-chain/network-information/network-faucets
- *
- * Loops until the rolling 24h CDP limit is hit or `maxClaims` is reached so a single
- * daily cron can accumulate up to ~0.1 ETH.
- */
 export async function requestFaucetFunds(treasuryAddress: string): Promise<RefillResult> {
   const apiKeyId = process.env.CDP_API_KEY_ID;
   const apiKeySecret = process.env.CDP_API_KEY_SECRET;

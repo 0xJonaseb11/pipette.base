@@ -19,7 +19,6 @@ Connect your wallet, link your GitHub account, and claim when you need it. How m
 ![](./assets/image3.png)
 ![](./assets/image4.png)
 ![](./assets/image5.png)
-![](./assets/image6.png)
 
 ---
 
