@@ -53,7 +53,7 @@ Use these types and this format for every commit so PRs and history stay easy to
 
 - Search existing issues and PRs to avoid duplicates.
 - One PR should focus on **one concern** (one feature, one fix, or one refactor), not mixed.
-- Run `yarn next:build` and fix any failures; the pre-commit hook runs lint and type-check.
+- Run `yarn next:lint`, `yarn next:check-types`, and `yarn next:build` before opening a PR.
 
 ### PR quality
 

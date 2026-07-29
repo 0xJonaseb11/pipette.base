@@ -1,7 +1,7 @@
 # dependencies
 node_modules
 
-# yarn
+# yarn (keep releases + plugins; never commit cache)
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
@@ -14,17 +14,19 @@ node_modules
 
 # misc
 .DS_Store
+*.tsbuildinfo
 
-# IDE
+# IDE / agent tooling
 .vscode
 .idea
+.cursor
+.claude
+.agents
+.opencode
+AGENTS.md
+CLAUDE.md
+.mcp.json
+opencode.json
 
 # cli
 dist
-
-AGENTS.md
-CLAUDE.md
-.claude/*
-.cursor/*
-.agents/*
-.opencode/*

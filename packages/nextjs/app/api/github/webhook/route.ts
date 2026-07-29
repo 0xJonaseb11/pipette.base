@@ -6,11 +6,7 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.text();
-
-    console.log("GitHub Marketplace webhook received");
-    console.log(body);
-
+    await req.text();
     return NextResponse.json({ status: "received" }, { status: 200 });
   } catch (error) {
     console.error("Webhook error:", error);
