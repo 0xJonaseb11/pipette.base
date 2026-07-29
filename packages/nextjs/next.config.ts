@@ -1,11 +1,14 @@
 import type { NextConfig } from "next";
 
-const optionalPeerStubs = [
+const unusedOptionalPeers = [
+  "@base-org/account",
   "@gemini-wallet/core",
-  "@metamask/sdk",
-  "@metamask/sdk-analytics",
   "porto",
   "@react-native-async-storage/async-storage",
+  "@x402/core",
+  "@x402/evm",
+  "@x402/svm",
+  "@x402/extensions",
 ];
 
 const nextConfig: NextConfig = {
@@ -22,7 +25,7 @@ const nextConfig: NextConfig = {
     config.externals.push("pino-pretty", "lokijs", "encoding");
     config.resolve.alias = {
       ...config.resolve.alias,
-      ...Object.fromEntries(optionalPeerStubs.map(name => [name, false])),
+      ...Object.fromEntries(unusedOptionalPeers.map(name => [name, false])),
     };
     return config;
   },
