@@ -26,9 +26,17 @@ export default function PolicyPage() {
           </p>
           <ul className="list-disc pl-6 space-y-2 mt-2">
             <li>
-              <strong>Testnet accumulation.</strong> We obtain Base Sepolia ETH exclusively through Coinbase Developer
-              Platform (CDP) faucet, which is intended for developer use. Our treasury is refilled automatically within
-              CDP&apos;s rate limits and terms.
+              <strong>Testnet accumulation.</strong> We obtain Base Sepolia ETH exclusively through the{" "}
+              <a
+                href="https://docs.base.org/base-chain/network-information/network-faucets"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link"
+              >
+                Coinbase Developer Platform (CDP) faucet
+              </a>
+              , which is intended for developer use (up to 0.1 ETH per 24 hours). Our treasury is refilled automatically
+              once per day within CDP&apos;s rate limits and terms.
             </li>
             <li>
               <strong>Distribution.</strong> We distribute to developers who connect a wallet, link GitHub, and pass an
