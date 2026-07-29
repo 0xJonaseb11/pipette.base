@@ -40,7 +40,7 @@
     "zustand": "~5.0.14"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "4.3.0",
+    "@tailwindcss/postcss": "4.3.3",
     "@trivago/prettier-plugin-sort-imports": "~6.0.2",
     "@types/node": "~18.19.50",
     "@types/react": "~19.2.16",
@@ -51,7 +51,7 @@
     "eslint-plugin-prettier": "~5.5.5",
     "postcss": "~8.5.14",
     "prettier": "~3.8.3",
-    "tailwindcss": "4.3.0",
+    "tailwindcss": "4.3.3",
     "tsx": "^4.22.2",
     "type-fest": "~5.4.4",
     "typescript": "~5.8.2",
