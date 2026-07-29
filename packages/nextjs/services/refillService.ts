@@ -40,6 +40,27 @@ function errorDetails(err: unknown): { message: string; code?: string } {
   return { message: String(err), code };
 }
 
+function successResult(hashes: string[], limitReached: boolean): RefillResult {
+  return { ok: true, transactionHashes: hashes, claims: hashes.length, limitReached };
+}
+
+function failureResult(err: unknown, fallbackCode: string, hashes: string[] = []): RefillResult {
+  const { message, code } = errorDetails(err);
+  return {
+    ok: false,
+    error: message,
+    code: code ?? fallbackCode,
+    transactionHashes: hashes,
+    claims: hashes.length,
+  };
+}
+
+function resolveMaxClaims(): number {
+  const raw = process.env.REFILL_MAX_CLAIMS_PER_RUN;
+  const parsed = raw ? Number.parseInt(raw, 10) : DEFAULT_MAX_CLAIMS_PER_RUN;
+  return Math.min(Math.max(1, Number.isFinite(parsed) ? parsed : DEFAULT_MAX_CLAIMS_PER_RUN), 1000);
+}
+
 /**
  * Request Base Sepolia ETH from the Coinbase Developer Platform faucet into the treasury.
  * Uses the official CDP SDK (`cdp.evm.requestFaucet`) — same source as
@@ -65,14 +86,9 @@ export async function requestFaucetFunds(treasuryAddress: string): Promise<Refil
     return { ok: false, error: "Invalid treasury address", code: "INVALID_ADDRESS" };
   }
 
-  const maxClaimsRaw = process.env.REFILL_MAX_CLAIMS_PER_RUN;
-  const maxClaims = Math.min(
-    Math.max(1, maxClaimsRaw ? Number.parseInt(maxClaimsRaw, 10) || DEFAULT_MAX_CLAIMS_PER_RUN : DEFAULT_MAX_CLAIMS_PER_RUN),
-    1000,
-  );
-
   const cdp = new CdpClient({ apiKeyId, apiKeySecret });
   const transactionHashes: string[] = [];
+  const maxClaims = resolveMaxClaims();
 
   for (let i = 0; i < maxClaims; i++) {
     try {
@@ -83,48 +99,12 @@ export async function requestFaucetFunds(treasuryAddress: string): Promise<Refil
       });
       transactionHashes.push(transactionHash);
     } catch (err) {
-      if (isLimitExceeded(err)) {
-        if (transactionHashes.length > 0) {
-          return {
-            ok: true,
-            transactionHashes,
-            claims: transactionHashes.length,
-            limitReached: true,
-          };
-        }
-        const { message, code } = errorDetails(err);
-        return {
-          ok: false,
-          error: message,
-          code: code ?? "faucet_limit_exceeded",
-          transactionHashes,
-          claims: 0,
-        };
-      }
-
-      const { message, code } = errorDetails(err);
       if (transactionHashes.length > 0) {
-        return {
-          ok: true,
-          transactionHashes,
-          claims: transactionHashes.length,
-          limitReached: false,
-        };
+        return successResult(transactionHashes, isLimitExceeded(err));
       }
-      return {
-        ok: false,
-        error: message,
-        code: code ?? "FAUCET_ERROR",
-        transactionHashes,
-        claims: 0,
-      };
+      return failureResult(err, isLimitExceeded(err) ? "faucet_limit_exceeded" : "FAUCET_ERROR");
     }
   }
 
-  return {
-    ok: true,
-    transactionHashes,
-    claims: transactionHashes.length,
-    limitReached: false,
-  };
+  return successResult(transactionHashes, false);
 }
