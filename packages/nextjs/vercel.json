@@ -1,5 +1,5 @@
 {
-  "installCommand": "yarn install",
+  "installCommand": "corepack enable && yarn install --immutable",
   "crons": [
     {
       "path": "/api/cron/refill",
@@ -7,4 +7,3 @@
     }
   ]
 }
-
