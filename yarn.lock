@@ -2653,7 +2653,7 @@ __metadata:
     "@scaffold-ui/hooks": ^0.1.8
     "@supabase/supabase-js": ^2.106.2
     "@tailwindcss/postcss": 4.3.3
-    "@tanstack/react-query": ~5.101.4
+    "@tanstack/react-query": ~5.90.21
     "@trivago/prettier-plugin-sort-imports": ~6.0.2
     "@types/node": ~26.1.2
     "@types/react": ~19.2.16
@@ -2679,7 +2679,7 @@ __metadata:
     resend: ^6.12.4
     tailwindcss: 4.3.3
     tsx: ^4.22.2
-    type-fest: ~5.8.0
+    type-fest: ~5.4.4
     typescript: ~7.0.2
     usehooks-ts: ~3.1.0
     vercel: ~58.3.0
