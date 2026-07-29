@@ -18,7 +18,7 @@
     "@coinbase/cdp-sdk": "^1.51.0",
     "@coinbase/wallet-sdk": "~4.3.6",
     "@heroicons/react": "~2.2.0",
-    "@metamask/sdk": "~0.33.1",
+    "@metamask/sdk": "~0.34.0",
     "@rainbow-me/rainbowkit": "2.2.11",
     "@safe-global/safe-apps-provider": "~0.18.6",
     "@safe-global/safe-apps-sdk": "~9.1.0",
@@ -29,7 +29,7 @@
     "@vercel/analytics": "^2.0.1",
     "@walletconnect/ethereum-provider": "~2.21.1",
     "blo": "~2.0.0",
-    "daisyui": "5.5.20",
+    "daisyui": "5.7.7",
     "lucide-react": "^0.460.0",
     "next": "~16.2.12",
     "next-nprogress-bar": "~2.4.7",
@@ -40,8 +40,8 @@
     "react-hot-toast": "~2.6.0",
     "resend": "^6.12.4",
     "usehooks-ts": "~3.1.0",
-    "viem": "2.52.0",
-    "wagmi": "3.0.0",
+    "viem": "2.55.10",
+    "wagmi": "3.7.5",
     "zustand": "~5.0.14"
   },
   "devDependencies": {
