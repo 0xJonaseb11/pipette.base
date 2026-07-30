@@ -2504,7 +2504,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@safe-global/safe-apps-provider@npm:~0.18.6":
+"@safe-global/safe-apps-provider@npm:0.18.6, @safe-global/safe-apps-provider@npm:~0.18.6":
   version: 0.18.6
   resolution: "@safe-global/safe-apps-provider@npm:0.18.6"
   dependencies:
@@ -2639,10 +2639,10 @@ __metadata:
     "@types/node": ~26.1.2
     "@types/react": ~19.2.16
     "@vercel/analytics": ^2.0.1
-    "@walletconnect/ethereum-provider": ~2.21.1
+    "@walletconnect/ethereum-provider": ~2.23.10
     autoprefixer: ~10.5.4
     blo: ~2.0.0
-    daisyui: 5.5.20
+    daisyui: 5.7.7
     eslint: ~10.8.0
     eslint-config-next: ~16.2.12
     eslint-config-prettier: ~10.1.1
@@ -11027,6 +11027,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"slow-redact@npm:^0.3.0":
+  version: 0.3.2
+  resolution: "slow-redact@npm:0.3.2"
+  checksum: 7c5264f93a309684a3a2622d0017af024174f31b4b82921b19791d8a707e8bc5dca56918df685dada23ccc84fbe2cc0cc954a739989c9167d5f60c05fa639f22
+  languageName: node
+  linkType: hard
+
 "smol-toml@npm:1.5.2":
   version: 1.5.2
   resolution: "smol-toml@npm:1.5.2"
@@ -11056,9 +11063,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sonic-boom@npm:^2.2.1":
-  version: 2.8.0
-  resolution: "sonic-boom@npm:2.8.0"
+"sonic-boom@npm:^4.0.1":
+  version: 4.2.1
+  resolution: "sonic-boom@npm:4.2.1"
   dependencies:
     atomic-sleep: ^1.0.0
   checksum: c7f9c89f931d7f60f8e0741551a729f0d81e6dc407a99420fc847a9a4c25af048a615b1188ab3c4f1fb3708fe4904973ddab6ebcc8ed5b78b50ab81a99045910
@@ -11069,13 +11076,6 @@ __metadata:
   version: 1.2.1
   resolution: "source-map-js@npm:1.2.1"
   checksum: 4eb0cd997cdf228bc253bcaff9340afeb706176e64868ecd20efbe6efea931465f43955612346d6b7318789e5265bdc419bc7669c1cebe3db0eb255f57efa76b
-  languageName: node
-  linkType: hard
-
-"split-on-first@npm:^1.0.0":
-  version: 1.1.0
-  resolution: "split-on-first@npm:1.1.0"
-  checksum: 16ff85b54ddcf17f9147210a4022529b343edbcbea4ce977c8f30e38408b8d6e0f25f92cd35b86a524d4797f455e29ab89eb8db787f3c10708e0b47ebf528d30
   languageName: node
   linkType: hard
 
