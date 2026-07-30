@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AlertCircle, ArrowDownToLine, CheckCircle, Clock, Github, Loader2, ShieldOff, Wallet } from "lucide-react";
+import { AlertCircle, ArrowDownToLine, CheckCircle, Clock, GitBranch, Loader2, ShieldOff, Wallet } from "lucide-react";
 import { useAccount, useSignMessage } from "wagmi";
 import type { User } from "~~/types";
 
@@ -115,7 +115,7 @@ export function ClaimButton({
     },
     github_not_linked: {
       label: "Connect GitHub First",
-      icon: <Github className="h-4 w-4" />,
+      icon: <GitBranch className="h-4 w-4" />,
       disabled: !onConnectGitHub,
     },
     pending: {

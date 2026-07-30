@@ -58,8 +58,9 @@ export const AddressInfoDropdown = ({
       <ul className="dropdown-content menu z-2 p-2 mt-2 shadow-center shadow-accent bg-base-200 rounded-box gap-1">
         <NetworkOptions hidden={!selectingNetwork} />
         <li className={selectingNetwork ? "hidden" : ""}>
-          <div
-            className="h-8 btn-sm rounded-xl! flex gap-3 py-3 cursor-pointer"
+          <button
+            type="button"
+            className="h-8 btn-sm rounded-xl! flex gap-3 py-3"
             onClick={() => copyAddressToClipboard(checkSumAddress)}
           >
             {isAddressCopiedToClipboard ? (
@@ -73,7 +74,7 @@ export const AddressInfoDropdown = ({
                 <span className="whitespace-nowrap">Copy address</span>
               </>
             )}
-          </div>
+          </button>
         </li>
         <li className={selectingNetwork ? "hidden" : ""}>
           <label htmlFor="qrcode-modal" className="h-8 btn-sm rounded-xl! flex gap-3 py-3">
@@ -82,12 +83,15 @@ export const AddressInfoDropdown = ({
           </label>
         </li>
         <li className={selectingNetwork ? "hidden" : ""}>
-          <button className="h-8 btn-sm rounded-xl! flex gap-3 py-3" type="button">
+          <a
+            target="_blank"
+            href={blockExplorerAddressLink}
+            rel="noopener noreferrer"
+            className="h-8 btn-sm rounded-xl! flex gap-3 py-3 whitespace-nowrap"
+          >
             <ArrowTopRightOnSquareIcon className="h-6 w-4 ml-2 sm:ml-0" />
-            <a target="_blank" href={blockExplorerAddressLink} rel="noopener noreferrer" className="whitespace-nowrap">
-              View on Block Explorer
-            </a>
-          </button>
+            View on Block Explorer
+          </a>
         </li>
         {allowedNetworks.length > 1 ? (
           <li className={selectingNetwork ? "hidden" : ""}>

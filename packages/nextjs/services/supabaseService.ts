@@ -237,6 +237,82 @@ export async function getTreasurySnapshots(days?: number): Promise<TreasurySnaps
   return (data as DatabaseTreasurySnapshotRow[]).map(mapTreasurySnapshotRow);
 }
 
+export type ListUsersOptions = {
+  status?: UserStatus | "all";
+  page?: number;
+  limit?: number;
+  search?: string;
+};
+
+export type ListUsersResult = {
+  users: User[];
+  total: number;
+  page: number;
+  limit: number;
+};
+
+export async function listUsers(options: ListUsersOptions = {}): Promise<ListUsersResult> {
+  const supabase = getServiceClient();
+  const page = Math.max(1, options.page ?? 1);
+  const limit = Math.min(100, Math.max(1, options.limit ?? 25));
+  const from = (page - 1) * limit;
+  const to = from + limit - 1;
+
+  let query = supabase.from("users").select("*", { count: "exact" }).order("created_at", { ascending: false });
+
+  if (options.status && options.status !== "all") {
+    query = query.eq("status", options.status);
+  }
+
+  if (options.search?.trim()) {
+    const term = options.search.trim().toLowerCase();
+    query = query.or(`wallet_address.ilike.%${term}%,github_login.ilike.%${term}%`);
+  }
+
+  const { data, error, count } = await query.range(from, to);
+
+  if (error) {
+    throw error;
+  }
+
+  return {
+    users: (data as DatabaseUserRow[] | null)?.map(mapUserRow) ?? [],
+    total: count ?? 0,
+    page,
+    limit,
+  };
+}
+
+export async function getUserStatusCounts(): Promise<Record<UserStatus, number>> {
+  const supabase = getServiceClient();
+  const statuses: UserStatus[] = ["active", "pending", "blocked"];
+  const counts: Record<UserStatus, number> = { active: 0, pending: 0, blocked: 0 };
+
+  await Promise.all(
+    statuses.map(async status => {
+      const { count, error } = await supabase
+        .from("users")
+        .select("*", { count: "exact", head: true })
+        .eq("status", status);
+      if (error) throw error;
+      counts[status] = count ?? 0;
+    }),
+  );
+
+  return counts;
+}
+
+export async function bulkApprovePending(): Promise<number> {
+  const supabase = getServiceClient();
+  const { data, error } = await supabase.from("users").update({ status: "active" }).eq("status", "pending").select("id");
+
+  if (error) {
+    throw error;
+  }
+
+  return data?.length ?? 0;
+}
+
 function mapUserRow(row: DatabaseUserRow): User {
   return {
     id: row.id,

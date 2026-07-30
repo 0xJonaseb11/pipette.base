@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { useMemo, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Droplets, LifeBuoy } from "lucide-react";
+import { Droplets, LifeBuoy, Shield } from "lucide-react";
+import { useAccount } from "wagmi";
 import { Bars3Icon } from "@heroicons/react/24/outline";
 import { RainbowKitCustomConnectButton } from "~~/components/scaffold-eth";
 import { useOutsideClick } from "~~/hooks/scaffold-eth";
@@ -15,7 +16,7 @@ type HeaderMenuLink = {
   icon?: React.ReactNode;
 };
 
-export const menuLinks: HeaderMenuLink[] = [
+const baseLinks: HeaderMenuLink[] = [
   { label: "Home", href: "/" },
   { label: "Faucet", href: "/faucet", icon: <Droplets className="h-4 w-4" /> },
   { label: "Support", href: "/support", icon: <LifeBuoy className="h-4 w-4" /> },
@@ -23,6 +24,16 @@ export const menuLinks: HeaderMenuLink[] = [
 
 export const HeaderMenuLinks = () => {
   const pathname = usePathname();
+  const { address } = useAccount();
+  const adminWallet = process.env.NEXT_PUBLIC_ADMIN_WALLET?.trim().toLowerCase();
+
+  const menuLinks = useMemo(() => {
+    const links = [...baseLinks];
+    if (address && adminWallet && address.toLowerCase() === adminWallet) {
+      links.push({ label: "Admin", href: "/admin", icon: <Shield className="h-4 w-4" /> });
+    }
+    return links;
+  }, [address, adminWallet]);
 
   return (
     <>
